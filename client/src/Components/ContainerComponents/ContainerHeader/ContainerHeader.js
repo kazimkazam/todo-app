@@ -50,6 +50,8 @@ const ContainerHeader = () => {
         };
     };
 
+    // --------------------------------------------------------------------------------------------------
+
     // filter inbox and today todos to determine if the notifications icon should alert the user or not
     const date = new Date();
     const dateToday = date.getDate();
@@ -67,6 +69,18 @@ const ContainerHeader = () => {
             document.getElementById('newNotificationsDiv').className = 'hidden absolute top-1 right-[4.5rem]';
         };
     }, [ inboxTodosLength, todayTodosLength ]);
+
+    // ----------------------------------------------------------------------------------------------------------
+
+    // filter todos depending on user search
+
+    const onSearchHandler = (event) => {
+        const searchTopic = event.target.value;
+
+        
+    };
+
+    // ----------------------------------------------------------------------------------------------------------
 
     return(
         <div>
