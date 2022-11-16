@@ -5,8 +5,12 @@ const AddTodoPopup = (props) => {
                 <h3 className={ 'text-lg font-bold' } >Add todo</h3>
                 <img className={ 'cursor-pointer hover:scale-125' } src={ require('../../../resources/icons/close.png') } width={ 30 } title={ 'Close window' } alt={ 'Close' } onClick={ props.closeWindow } />
             </div>
+
+            <div id={ 'addTodoWarning' } className={ 'bg-amber-700 text-center hidden' } >
+                <p>Please make sure there are no empty fields before submitting.</p>
+            </div>
             
-            <div className={ 'flex flex-col justify-evenly place-items-center p-2 m-4' } >
+            <div className={ 'flex flex-col justify-evenly place-items-center p-2 mb-4' } >
                 <label className={ 'text-lg' } >Description</label>
                 <textarea className={ 'bg-neutral-900 text-white outline-none ring-2 ring-black rounded w-72 h-20 resize-none hover:ring-white focus:ring-white' } id={ 'description' } name={ 'description' } type={ 'text' } placeholder={ 'Insert a description.' } onChange={ props.onChange } />
 

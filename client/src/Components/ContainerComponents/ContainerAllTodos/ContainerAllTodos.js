@@ -55,6 +55,8 @@ const ContainerAllTodos = () => {
 
     // open todo edit window handler
     const onClickEditHandler = (event) => {
+        console.log(event)
+
         dispatch(handleId(event));
         const selectedTodoToEdit = allTodos.filter(todo => todo.id === Number(event.target.name))[0];
 
@@ -68,11 +70,8 @@ const ContainerAllTodos = () => {
         document.getElementById('editDueMinutes').value = getMinutesFromIso8601(selectedTodoToEdit.due_date);
         document.getElementById('editPriority').value = handlePriority(selectedTodoToEdit.priority);
 
-        // const xCoord = event.screenX;
-        // const yCoord = event.screenY;
-
         document.getElementById('editTodosWindow').className = 'absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50';
-        // document.getElementById('editTodosWindow').className = 'absolute top-[' + yCoord + 'px] left-[' + xCoord + 'px] bg-[#0B5269] w-96 rounded z-50';
+        // document.getElementById('editTodosWindow').className = `absolute top-[${yCoord}px] left-[${xCoord}px] bg-[#0B5269] w-96 rounded z-50`;
     };
 
     // close popup windows if open when user clicks on the all todos window

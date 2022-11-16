@@ -32,6 +32,9 @@ const ContainerAddTodoPopup = () => {
         document.getElementById('dueMinutes').value = '';
         document.getElementById('priority').value = 'lowPriority';
         dispatch(handleReset());
+
+        // hide the warning in the add todo window
+        document.getElementById('addTodoWarning').className = 'bg-amber-700 text-center hidden';
     };
 
     // handle input changes and pass them into the variables state
@@ -41,22 +44,26 @@ const ContainerAddTodoPopup = () => {
 
     // send post request on button click
     const onAddHandler = () => {
-        dispatch(addTodoApi({
-            description: newTodo.description,
-            project: newTodo.project,
-            comments: newTodo.comments,
-            due_date: newTodo.dueDate,
-            priority: newTodo.priority,
-            user_id: userId,
-            seen: false
-        }));
-
-        dispatch(getTodosApi({
-            user_id: userId
-        }));
-
-        // close window and reset window inputs and addTodosSlice state
-        closePopuphandler();
+        if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
+            dispatch(addTodoApi({
+                description: newTodo.description,
+                project: newTodo.project,
+                comments: newTodo.comments,
+                due_date: newTodo.dueDate,
+                priority: newTodo.priority,
+                user_id: userId,
+                seen: false
+            }));
+    
+            dispatch(getTodosApi({
+                user_id: userId
+            }));
+    
+            // close window and reset window inputs and addTodosSlice state
+            closePopuphandler();
+        } else {
+            document.getElementById('addTodoWarning').className = 'bg-amber-700 text-center';
+        };
     };
 
     // close add todo popup windown on escape key keydown, and submit post request if enter key keydown

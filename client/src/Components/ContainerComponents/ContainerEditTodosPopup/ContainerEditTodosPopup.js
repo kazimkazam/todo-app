@@ -32,6 +32,9 @@ const ContainerEditTodosPopup = () => {
         document.getElementById('editDueMinutes').value = '';
         document.getElementById('editPriority').value = 'lowPriority';
         dispatch(handleReset());
+
+        // hide the warning in the edit todo window
+        document.getElementById('editTodoWarning').className = 'bg-amber-700 text-center hidden';
     };
 
     // handle input changes and pass them into the variables state
@@ -41,21 +44,25 @@ const ContainerEditTodosPopup = () => {
 
     // send put request on button click
     const onSubmitEditHandler = () => {
-        const editTodo = {
-            id: newTodo.id,
-            description: newTodo.description,
-            project: newTodo.project,
-            comments: newTodo.comments,
-            due_date: newTodo.dueDate,
-            priority: newTodo.priority,
-            user_id: userId,
-            seen: false
+        if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
+            const editTodo = {
+                id: newTodo.id,
+                description: newTodo.description,
+                project: newTodo.project,
+                comments: newTodo.comments,
+                due_date: newTodo.dueDate,
+                priority: newTodo.priority,
+                user_id: userId,
+                seen: false
+            };
+    
+            dispatch(updateTodoApi(editTodo));
+    
+            // close window and reset window inputs and updateTodoSlice state
+            closePopuphandler();
+        } else {
+            document.getElementById('editTodoWarning').className = 'bg-amber-700 text-center';
         };
-
-        dispatch(updateTodoApi(editTodo));
-
-        // close window and reset window inputs and updateTodoSlice state
-        closePopuphandler();
     };
 
     // close edit todo popup windown on escape key keydown, and submit put request if enter key keydown
