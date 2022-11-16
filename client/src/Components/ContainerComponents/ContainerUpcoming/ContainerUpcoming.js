@@ -20,7 +20,7 @@ const ContainerUpcoming = () => {
     const date = new Date();
     const dateToday = date.getDate();
 
-    const upcomingTodos = allTodos.filter(todo => getDateDayFromIso8601(todo.due_date) > dateToday);
+    const upcomingTodos = allTodos.filter(todo => Number(getDateDayFromIso8601(todo.due_date)) > dateToday);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

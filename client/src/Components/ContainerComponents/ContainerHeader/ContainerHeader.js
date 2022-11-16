@@ -57,7 +57,7 @@ const ContainerHeader = () => {
     const inboxTodos = allTodos.filter(todo => todo.seen === false);
     const inboxTodosLength = inboxTodos.length;
 
-    const todayTodos = allTodos.filter(todo => getDateDayFromIso8601(todo.due_date) === dateToday);
+    const todayTodos = allTodos.filter(todo => Number(getDateDayFromIso8601(todo.due_date)) === dateToday);
     const todayTodosLength = todayTodos.length;
 
     useEffect(() => {

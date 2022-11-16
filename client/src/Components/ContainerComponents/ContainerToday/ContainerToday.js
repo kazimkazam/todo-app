@@ -21,7 +21,7 @@ const ContainerToday = () => {
     const date = new Date();
     const dateToday = date.getDate();
     
-    const todayTodos = allTodos.filter(todo => getDateDayFromIso8601(todo.due_date) === dateToday);
+    const todayTodos = allTodos.filter(todo => Number(getDateDayFromIso8601(todo.due_date)) === dateToday);
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
