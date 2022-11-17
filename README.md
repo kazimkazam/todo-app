@@ -1,6 +1,6 @@
 ## todo App
 
-PERN (PostgreSQL, Express, React, and NodeJS) application using redux as state container.
+PERN (PostgreSQL, Express, React, and NodeJS) application using redux as state container, and Tailwind CSS.
 
 ## Table of Contents
 
@@ -16,14 +16,19 @@ PERN (PostgreSQL, Express, React, and NodeJS) application using redux as state c
 
 This SPA was coded using React together with Redux. Express.js framework was used to handle the REST requests, and a PostgreSQL database makes the state between sessions persistent and stores authentication/authorization related data.
 
-To handle the design of the application, ...
+To handle the design of the application, Tailwind CSS was used.
 
 The application is running on:
-- React;
-- Redux;
-- Express.js;
-- PostgreSQL;
-- ...
+- react 18.2.0;
+- react-dom 18.2.0;
+- react-redux 8.0.4;
+- react-router-dom 6.4.2;
+- redux 4.2.0;
+- reduxjs/toolkit 1.8.6;
+- express 4.18.2;
+- express-session 1.17.3;
+- pg 8.8.0;
+- Tailwind CSS.
 
 ## How to Use
 
@@ -56,7 +61,7 @@ The application is running on:
 - Negative icons created by Aldo Cervantes - Flaticon: used to get the close window icon https://www.flaticon.com/free-icons/negative
 - Delete icons created by Uniconlabs - Flaticon: used to get the delete todo icon https://www.flaticon.com/free-icons/delete
 - Edit icons created by Freepik - Flaticon: used to get the edit todo icon https://www.flaticon.com/free-icons/edit
--Critical icons created by juicy_fish - Flaticon: used to get the new notifications warning icon https://www.flaticon.com/free-icons/critical
+- Critical icons created by juicy_fish - Flaticon: used to get the new notifications warning icon https://www.flaticon.com/free-icons/critical
 
 ## Licence
 
