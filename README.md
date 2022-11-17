@@ -48,20 +48,7 @@ The application is running on:
 
 ## References
 
-- To do list icons created by Iconic Panda - Flaticon: used to get the page logo https://www.flaticon.com/free-icons/to-do-list
-- Inbox icons created by Freepik - Flaticon: used to get the inbox icon https://www.flaticon.com/free-icons/inbox
-- Calendar icons created by Freepik - Flaticon: used to get the today icon https://www.flaticon.com/free-icons/calendar
-- Upcoming icons created by Freepik - Flaticon: used to get the upcoming icon https://www.flaticon.com/free-icons/upcoming
-- Plus sign icons created by Stasy - Flaticon: used to get the add new task icon https://www.flaticon.com/free-icons/plus-sign
-- Bell icons created by Freepik - Flaticon: used to get the notifications icon https://www.flaticon.com/free-icons/bell
-- Search icons created by Those Icons - Flaticon: used to get the search icon https://www.flaticon.com/free-icons/search
-- Logout icons created by Freepik - Flaticon: used to get the logout icon https://www.flaticon.com/free-icons/logout
-- Wrong icons created by Skyclick - Flaticon: used to get the wrong login icon https://www.flaticon.com/free-icons/wrong
-- Document icons created by vectorsmarket15 - Flaticon: used to get the all todos icon https://www.flaticon.com/free-icons/document
-- Negative icons created by Aldo Cervantes - Flaticon: used to get the close window icon https://www.flaticon.com/free-icons/negative
-- Delete icons created by Uniconlabs - Flaticon: used to get the delete todo icon https://www.flaticon.com/free-icons/delete
-- Edit icons created by Freepik - Flaticon: used to get the edit todo icon https://www.flaticon.com/free-icons/edit
-- Critical icons created by juicy_fish - Flaticon: used to get the new notifications warning icon https://www.flaticon.com/free-icons/critical
+- All icons used - Flaticon: https://www.flaticon.com/
 
 ## Licence
 
