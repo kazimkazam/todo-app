@@ -1,6 +1,6 @@
 import { Header } from "../../PresentationalComponents/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
-import { handleReset } from "../../../redux/features/loginSlice";
+import { handleReset as loginReset } from "../../../redux/features/loginSlice";
 import { selectUsername } from "../../../redux/features/loginSlice";
 import { logoutApi } from "../../../resources/utils/callBackendApi";
 import { resetLogoutState } from "../../../redux/features/logoutSlice";
@@ -9,6 +9,10 @@ import { ContainerAddTodoPopup } from "../ContainerAddTodoPopup/ContainerAddTodo
 import { ContainerNotifications } from "../ContainerNotifications/ContainerNotifications";
 import { ContainerEditTodosPopup } from "../ContainerEditTodosPopup/ContainerEditTodosPopup";
 import { selectTodos } from "../../../redux/features/todosSlice";
+import { handleChange, handleSearch, handleSearchReset } from "../../../redux/features/todosSlice";
+import { handleReset as addTodosReset } from "../../../redux/features/addTodosSlice";
+import { handleReset as updateTodosReset } from "../../../redux/features/updateTodoSlice";
+import { handleReset as todosReset } from "../../../redux/features/todosSlice";
 import { getDateDayFromIso8601 } from "../../../resources/utils/getDateFromIso8601";
 import { useEffect } from "react";
 
@@ -22,7 +26,12 @@ const ContainerHeader = () => {
 
     // handler for the user logout
     const handleClick = () => {
-        dispatch(handleReset());
+        // reset all states
+        dispatch(loginReset());
+        dispatch(addTodosReset())
+        dispatch(updateTodosReset())
+        dispatch(todosReset())
+
         dispatch(logoutApi());
         
         navigate('/');
@@ -72,12 +81,26 @@ const ContainerHeader = () => {
 
     // ----------------------------------------------------------------------------------------------------------
 
-    // filter todos depending on user search
+    // handle user todo search
+    const searchTopicChangeHandler = (event) => {
+        dispatch(handleChange(event));
+    };
 
-    const onSearchHandler = (event) => {
-        const searchTopic = event.target.value;
-
-        
+    const onSearchHandler = () => {
+        dispatch(handleSearch());
+        navigate('/searchresults');
+    };
+    
+    // if user escapes from search input, input is cleared and state reset
+    const searchOnKeyDownHandler = (event) => {
+        if (event.key === 'Enter') {
+            onSearchHandler();
+            document.getElementById('searchInput').value = '';
+        } else if (event.key === 'Escape') {
+            dispatch(handleSearchReset());
+            document.getElementById('searchInput').value = '';
+            navigate('/inbox');
+        };
     };
 
     // ----------------------------------------------------------------------------------------------------------
@@ -87,8 +110,10 @@ const ContainerHeader = () => {
             <Header
             username={ username }
             onClick={ handleClick }
+            onChange={ searchTopicChangeHandler }
+            onSearchKeydown={ searchOnKeyDownHandler }
             openPopup={ openPopupHandler }
-            onKeyDown={ closePopupOnEscapeHandler }
+            onEscapeKeyDown={ closePopupOnEscapeHandler }
             openNotifications={ openNotificationsHandler }
             />
 

@@ -5,6 +5,7 @@ import { ContainerInbox } from '../Components/ContainerComponents/ContainerInbox
 import { ContainerToday } from '../Components/ContainerComponents/ContainerToday/ContainerToday';
 import { ContainerUpcoming } from '../Components/ContainerComponents/ContainerUpcoming/ContainerUpcoming';
 import { ContainerAllTodos } from '../Components/ContainerComponents/ContainerAllTodos/ContainerAllTodos';
+import { ContainerSearchResults } from '../Components/ContainerComponents/ContainerSearchResults/ContainerSearchResults';
 import { ContainerFooter } from '../Components/ContainerComponents/ContainerFooter/ContainerFooter';
 import { Acknowledgements } from '../Components/PresentationalComponents/Acknowledgements/Acknowledgements';
 
@@ -26,6 +27,7 @@ const Layout = () => {
                         <Route path={ '/today' } element={ <ContainerToday /> } ></Route>
                         <Route path={ '/upcoming' } element={ <ContainerUpcoming /> } ></Route>
                         <Route path={ '/alltodos' } element={ <ContainerAllTodos /> } ></Route>
+                        <Route path={ '/searchresults' } element={ <ContainerSearchResults /> } ></Route>
                         <Route path={ '/acknowledgements' } element={ <Acknowledgements /> } ></Route>
                     </Routes>
                 </div>

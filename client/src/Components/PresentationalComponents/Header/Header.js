@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const Header = (props) => {
     return(
-        <div className={ 'grid grid-cols-4 w-full h-14' } id={ 'header' } onKeyDown={ props.onKeyDown } >
+        <div className={ 'grid grid-cols-4 w-full h-14' } id={ 'header' } onKeyDown={ props.onEscapeKeyDown } >
             {/* logo and title */}
             <div className={ 'col-1 inline-flex justify-start place-items-center mx-14' }>
                 <NavLink to={ '/inbox' } >
@@ -18,7 +18,7 @@ const Header = (props) => {
             <div className={ 'col-span-2 flex justify-center place-items-center' }>
                 <div className={ 'flex place-items-center rounded-md' } >
                     <img src={ require('../../../resources/icons/search.png') } width={ 20 } alt={ 'Search' } className={ 'mx-2.5 absolute invert' } />
-                    <input type={ 'text' } className={ 'bg-[#1D3E53] ring-2 ring-black text-white w-72 h-7 rounded-md outline-none px-10 hover:bg-neutral-900 hover:ring-white focus:bg-neutral-900 focus:ring-white' }></input>
+                    <input type={ 'text' } id={ 'searchInput' } name={ 'searchTopic' } className={ 'bg-[#1D3E53] ring-2 ring-black text-white w-72 h-7 rounded-md outline-none px-10 hover:bg-neutral-900 hover:ring-white focus:bg-neutral-900 focus:ring-white' } onChange={ props.onChange } onKeyDown={ props.onSearchKeydown } />
                 </div>
             </div>
 

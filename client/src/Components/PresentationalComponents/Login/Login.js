@@ -21,7 +21,7 @@ const Login = (props) => {
                         <input className={ 'text-center bg-neutral-50 placeholder:text-neutral-900 ring-2 ring-black text-black w-72 h-7 rounded-md outline-none hover:bg-neutral-900 hover:ring-white hover:text-white hover:placeholder:text-white focus:bg-neutral-900 focus:text-white focus:ring-white' } id={ 'password' } name={ 'password' } type={ 'password' } placeholder={ 'Password' } onChange={ props.onChange } onKeyDown={ props.onKeyDown } />
                     </div>
                     
-                    <input className={ 'bg-neutral-900 font-bold text-xl w-60 h-14 rounded outline-none ring-2 ring-neutral-50 cursor-pointer' } type={ 'submit' } value={ 'Log In' } onClick={ props.onClick } />
+                    <input className={ 'bg-teal-500 font-bold text-xl w-60 h-14 rounded outline-none ring-2 ring-neutral-50 cursor-pointer' } type={ 'submit' } value={ 'Log In' } onClick={ props.onClick } />
                 </div>
 
                 <div className={ 'bg-[#2FA4FF] my-12 flex justify-center place-items-center font-bold text-xl w-60 h-14 rounded outline-none ring-2 ring-neutral-50 cursor-pointer' }>

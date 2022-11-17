@@ -1,46 +1,22 @@
-import { AllTodos } from "../../PresentationalComponents/AllTodos/AllTodos";
+import { SearchResults } from "../../PresentationalComponents/SearchResults/SearchResults";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUserId } from "../../../redux/features/loginSlice";
-import { selectTodos, selectViewType } from "../../../redux/features/todosSlice";
-import { handleChange } from "../../../redux/features/todosSlice";
-import { useEffect } from "react";
+import { selectTodos, selectSearchTopic, selectSearchResults } from "../../../redux/features/todosSlice";
 import { getTodosApi, deleteTodoApi } from "../../../resources/utils/callBackendApi";
-import { handleReset, selectFetchStatus } from '../../../redux/features/deleteTodosSlice';
+import { selectUserId } from "../../../redux/features/loginSlice";
+import { selectFetchStatus, handleReset } from "../../../redux/features/deleteTodosSlice";
 import { handleId } from "../../../redux/features/updateTodoSlice";
-import { useNavigate } from "react-router-dom";
 import { getYearFromIso8601, getMonthFromIso8601, getDateDayFromIso8601, getHourFromIso8601, getMinutesFromIso8601 } from "../../../resources/utils/getDateFromIso8601";
 import { handlePriority } from "../../../resources/utils/handlePriority";
 
-const ContainerAllTodos = () => {
+const ContainerSearchResults = () => {
     const userId = useSelector(selectUserId);
     const allTodos = useSelector(selectTodos);
-    const viewType = useSelector(selectViewType);
+    const searchTopic = useSelector(selectSearchTopic);
+    const searchResults = useSelector(selectSearchResults);
     const deleteFetchStatus = useSelector(selectFetchStatus);
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        // if user is not logged in, navigate to login page
-        if (!userId) {
-            navigate('/');
-        }
-    }, [ userId, navigate ]);
-
-    // get all todos
-    const trigger = allTodos.length;
-    useEffect(() => {
-        dispatch(getTodosApi({
-            user_id: userId
-        }));
-    }, [ trigger, userId, dispatch ]);
-
-    // handler to change todos view type
-    const viewTypeChangeHandler = (event) => {
-        dispatch(handleChange(event));
-    };
-
-    // handler to delete todos
     const deleteTodoHandler = (event) => {
         // delete todo, refetch todos to update all todos array and reset delete fetch state
         dispatch(deleteTodoApi(event.target.name));
@@ -71,7 +47,6 @@ const ContainerAllTodos = () => {
         document.getElementById('editPriority').value = handlePriority(selectedTodoToEdit.priority);
 
         document.getElementById('editTodosWindow').className = 'absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50';
-        // document.getElementById('editTodosWindow').className = `absolute top-[${yCoord}px] left-[${xCoord}px] bg-[#0B5269] w-96 rounded z-50`;
     };
 
     // close popup windows if open when user clicks on the all todos window
@@ -81,15 +56,14 @@ const ContainerAllTodos = () => {
     };
     
     return(
-        <AllTodos
-        todos={ allTodos }
-        viewType={ viewType }
-        onChange={ viewTypeChangeHandler }
+        <SearchResults
+        topic={ searchTopic }
+        searchResults={ searchResults }
         onClickDelete={ deleteTodoHandler }
         onClickEdit={ editTodoHandler }
-        closeWindowsOnClick={ closeOpenWindowsHandler }
+        closeWindowsonClick={ closeOpenWindowsHandler }
         />
     );
 };
 
-export { ContainerAllTodos };
+export { ContainerSearchResults };

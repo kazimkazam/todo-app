@@ -4,7 +4,7 @@ const Sidebar = (props) => {
     return(
         <div onClick={ props.onClick }>
             <ul>
-                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } >
+                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } >
                     <NavLink to={ '/inbox' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/inbox.png') } width={ 30 } alt={ 'inbox icon' } className={ 'mr-3' } />
@@ -12,7 +12,7 @@ const Sidebar = (props) => {
                         </div>
                     </NavLink>
                 </li>
-                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } >
+                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } >
                     <NavLink to={ '/today' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/today.png') } width={ 30 } alt={ 'today icon' } className={ 'mr-3' } />
@@ -21,7 +21,7 @@ const Sidebar = (props) => {
                     </NavLink>
                     
                 </li>
-                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } >
+                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } >
                     <NavLink to={ '/upcoming' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/upcoming.png') } width={ 30 } alt={ 'upcoming icon' } className={ 'mr-3' } />
@@ -29,7 +29,7 @@ const Sidebar = (props) => {
                         </div>
                     </NavLink>
                 </li>
-                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } >
+                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } >
                     <NavLink to={ '/alltodos' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/folders.png') } width={ 30 } alt={ 'all todos icon' } className={ 'mr-3' } />
