@@ -11,7 +11,7 @@ const ContainerSidebar = () => {
     };
 
     const resetSearchOnTabSelection = () => {
-        dispatch(handleSearchReset);
+        dispatch(handleSearchReset());
     };
 
     return(

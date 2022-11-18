@@ -11,7 +11,6 @@ import { handleId } from "../../../redux/features/updateTodoSlice";
 import { getYearFromIso8601, getMonthFromIso8601, getDateDayFromIso8601, getHourFromIso8601, getMinutesFromIso8601 } from "../../../resources/utils/getDateFromIso8601";
 import { handlePriority } from "../../../resources/utils/handlePriority";
 
-
 const ContainerToday = () => {
     const userId = useSelector(selectUserId);
     const allTodos = useSelector(selectTodos);

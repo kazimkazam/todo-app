@@ -15,7 +15,10 @@ const port = process.env | 8080;
 const db = require('./db');
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 
 app.use(express.json());
 
@@ -32,6 +35,7 @@ app.use(session({
         maxAge: 30000000,
         secure: false,
         httpOnly: true,
+        sameSite: true,
     }
 }));
 

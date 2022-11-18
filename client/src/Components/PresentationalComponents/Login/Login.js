@@ -13,13 +13,10 @@ const Login = (props) => {
                         <img src={ require('../../../resources/logo/logo192.png') } alt={ 'page logo' } className={ 'w-12 h-12' } />
                         <h1 className={ 'text-2xl font-bold pl-2' } >todo</h1>
                     </div>
-                    <div>
-                        <input className={ 'text-center bg-neutral-50 placeholder:text-neutral-900 ring-2 ring-black text-black w-72 h-7 rounded-md outline-none hover:bg-neutral-900 hover:ring-white hover:text-white hover:placeholder:text-white focus:bg-neutral-900 focus:text-white focus:ring-white' } id={ 'email' } name={ 'email' } type={ 'text' } placeholder={ 'Email' } onChange={ props.onChange } onKeyDown={ props.onKeyDown } />
-                    </div>
+
+                    <input className={ 'text-center bg-neutral-50 placeholder:text-neutral-900 ring-2 ring-black text-black w-72 h-7 rounded-md outline-none hover:bg-neutral-900 hover:ring-white hover:text-white hover:placeholder:text-white focus:bg-neutral-900 focus:text-white focus:ring-white' } id={ 'email' } name={ 'email' } type={ 'text' } placeholder={ 'Email' } onChange={ props.onChange } onKeyDown={ props.onKeyDown } />
                     
-                    <div>
-                        <input className={ 'text-center bg-neutral-50 placeholder:text-neutral-900 ring-2 ring-black text-black w-72 h-7 rounded-md outline-none hover:bg-neutral-900 hover:ring-white hover:text-white hover:placeholder:text-white focus:bg-neutral-900 focus:text-white focus:ring-white' } id={ 'password' } name={ 'password' } type={ 'password' } placeholder={ 'Password' } onChange={ props.onChange } onKeyDown={ props.onKeyDown } />
-                    </div>
+                    <input className={ 'text-center bg-neutral-50 placeholder:text-neutral-900 ring-2 ring-black text-black w-72 h-7 rounded-md outline-none hover:bg-neutral-900 hover:ring-white hover:text-white hover:placeholder:text-white focus:bg-neutral-900 focus:text-white focus:ring-white' } id={ 'password' } name={ 'password' } type={ 'password' } placeholder={ 'Password' } onChange={ props.onChange } onKeyDown={ props.onKeyDown } />
                     
                     <input className={ 'bg-teal-500 font-bold text-xl w-60 h-14 rounded outline-none ring-2 ring-neutral-50 cursor-pointer' } type={ 'submit' } value={ 'Log In' } onClick={ props.onClick } />
                 </div>

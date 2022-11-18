@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const signUpApi = createAsyncThunk('signUpState/signUpUser', async (credentials) => {
-    console.log(credentials)
     const response = await fetch('http://localhost:8080/signup', {
         method: 'post',
         headers: {
