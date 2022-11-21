@@ -19,16 +19,29 @@ This SPA was coded using React together with Redux. Express.js framework was use
 To handle the design of the application, Tailwind CSS was used.
 
 The application is running on:
+
+Client:
 - react 18.2.0;
 - react-dom 18.2.0;
 - react-redux 8.0.4;
 - react-router-dom 6.4.2;
 - redux 4.2.0;
 - reduxjs/toolkit 1.8.6;
+- Tailwind CSS.
+
+Server:
 - express 4.18.2;
 - express-session 1.17.3;
+- express-validator: 6.14.2;
+- bcrypt 5.1.0;
+- cors 2.8.5;
+- cookie-parser 1.4.6;
+- csurf 1.11.0 (needs to be replaced, csurf recently deprecated);
+- helmet 6.0.0;
 - pg 8.8.0;
-- Tailwind CSS.
+- pg-promise 10.12.1;
+- connect-pg-simple 7.0.0.
+
 
 ## How to Use
 
