@@ -1,12 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const signUpApi = createAsyncThunk('signUpState/signUpUser', async (credentials) => {
+const signUpApi = createAsyncThunk('signUpState/signUpUser', async (creds) => {
     const response = await fetch('http://localhost:8080/signup', {
         method: 'post',
         headers: {
-            'Content-Type': 'application/json; charset=utf-8'
+            'Content-Type': 'application/json; charset=utf-8',
+            "xsrf-token": creds.csrfToken,
         },
-        body: JSON.stringify(credentials)
+        credentials: 'include',
+        body: JSON.stringify(creds.signupCredentials)
     });
     return response.json();
 });

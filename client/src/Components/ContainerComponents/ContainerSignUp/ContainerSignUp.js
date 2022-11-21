@@ -5,6 +5,8 @@ import { handleChange, handleReset } from "../../../redux/features/signUpSlice";
 import { useNavigate } from "react-router-dom";
 import { signUpApi } from "../../../resources/utils/callBackendApi";
 import { useEffect } from "react";
+import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
+import { getCsrfToken } from "../../../resources/utils/getCsrfToken";
 
 const ContainerSignUp = () => {
     const username = useSelector(selectUsername);
@@ -12,10 +14,16 @@ const ContainerSignUp = () => {
     const password = useSelector(selectPassword);
     const isSignedUp = useSelector(selectIsSignedUp);
     const fetchStatus = useSelector(selectFetchStatus);
+    var csrfToken = useSelector(selectCsrfToken);
 
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
+
+    // get csrf token at first render
+    useEffect(() => {
+        dispatch(getCsrfToken());
+    }, [ ]);
 
     // check if user/password input warning should or should not appear
     useEffect(() => {
@@ -38,25 +46,28 @@ const ContainerSignUp = () => {
     };
 
     // dispatch the sign up attempt on button click
-    const clickHandler = () => {
+    const signupHandler = () => {
+        // get a new csrf token
+        dispatch(getCsrfToken());
         const credentials = {
-            username: username,
-            email: email,
-            password: password
+            signupCredentials: {
+                username: username,
+                email: email,
+                password: password
+            },
+            csrfToken: csrfToken
         };
         dispatch(signUpApi(credentials));
     };
 
+    const clickHandler = () => {
+        signupHandler();
+    };
+
     // dispatch the sign up attempt on enter key keydown
     const enterKeyDownHandler = (event) => {
-        const credentials = {
-            username: username,
-            email: email,
-            password: password
-        };
-
         if (event.key === 'Enter') {
-            dispatch(signUpApi(credentials));
+            signupHandler();
         };
     };
     

@@ -101,3 +101,10 @@ app.post('/logout', db.ensureAuthentication, db.logout);
 app.listen(port, () => {
     console.log(`Server is up at ${port}`);
 });
+
+// ---------------------------------------------------
+
+// if testing
+module.exports = {
+    app
+};

@@ -5,13 +5,26 @@ const { Pool } = require('pg');
 
 const salt = bcrypt.genSaltSync(10);
 
+// const pool = new Pool({
+//     user: process.env.DB_USER,
+//     host: process.env.HOST,
+//     database: process.env.DATABASE,
+//     password: process.env.DB_PASS,
+//     port: 5432,
+// });
+
+// -----------------------------------------------
+// if testing
+
 const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.HOST,
-    database: process.env.DATABASE,
+    database: process.env.DATABASE_TEST,
     password: process.env.DB_PASS,
     port: 5432,
 });
+
+// -----------------------------------------------
 
 const ensureAuthentication = (req, res, next) => {
     pool.query('SELECT * FROM session', (error, results) => {

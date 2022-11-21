@@ -47,7 +47,7 @@ const ContainerLogin = () => {
     };
 
     // dispatch the login attempt on button click
-    const loginHandler = async () => {
+    const loginHandler = () => {
         // get a new csrf token
         dispatch(getCsrfToken());
         let credentials = {
@@ -60,7 +60,7 @@ const ContainerLogin = () => {
         dispatch(loginApi(credentials));
     };
 
-    const clickHandler = async () => {
+    const clickHandler = () => {
         loginHandler();
     };
 
