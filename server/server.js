@@ -10,6 +10,9 @@ const helmet = require('helmet');
 const express = require('express');
 const app = express();
 
+const cookieParser = require('cookie-parser');
+const csurf = require('csurf');
+
 const port = process.env | 8080;
 
 const db = require('./db');
@@ -40,6 +43,18 @@ app.use(session({
 }));
 
 // app.set('trust proxy', 1);
+
+app.use(cookieParser());
+
+const csurfProtection = csurf({
+    cookie: true
+});
+
+app.use(csurfProtection);
+
+app.get('/getCsrfToken', csurfProtection, (req, res) => {
+    res.send({ csrfToken: req.csrfToken() });
+});
 
 const signUpValidate = [
     // Check Username

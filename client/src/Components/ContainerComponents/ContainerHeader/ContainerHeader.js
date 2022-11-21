@@ -64,7 +64,7 @@ const ContainerHeader = () => {
     // filter inbox and today todos to determine if the notifications icon should alert the user or not
     const date = new Date();
     const dateToday = date.getDate();
-
+    
     const inboxTodos = allTodos.filter(todo => todo.seen === false);
     const inboxTodosLength = inboxTodos.length;
 

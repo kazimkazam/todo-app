@@ -5,17 +5,20 @@ import { selectNewTodo } from "../../../redux/features/updateTodoSlice";
 import { selectUserId } from "../../../redux/features/loginSlice";
 import { updateTodoApi } from "../../../resources/utils/callBackendApi";
 import { useEffect } from "react";
+import { handleTrigger, selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
 
 const ContainerEditTodosPopup = () => {
     const userId = useSelector(selectUserId);
     const newTodo = useSelector(selectNewTodo);
+    var csrfToken = useSelector(selectCsrfToken);
+    // const csrfTrigger = useSelector(selectCsrfTrigger);
 
     const dispatch = useDispatch();
 
     // convert the date inputs into one string date that can be submitted when the post request is sent
     useEffect(() => {
         dispatch(handleDate());
-    }, [ newTodo, dispatch ]);
+    }, [ newTodo ]);
 
     // close window handler
     const closePopuphandler = () => {
@@ -45,18 +48,33 @@ const ContainerEditTodosPopup = () => {
     // send put request on button click
     const onSubmitEditHandler = () => {
         if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
-            const editTodo = {
-                id: newTodo.id,
-                description: newTodo.description,
-                project: newTodo.project,
-                comments: newTodo.comments,
-                due_date: newTodo.dueDate,
-                priority: newTodo.priority,
-                user_id: userId,
-                seen: false
+            // dispatch(handleTrigger());
+            let credentials = {
+                editTodo: {
+                    id: newTodo.id,
+                    description: newTodo.description,
+                    project: newTodo.project,
+                    comments: newTodo.comments,
+                    due_date: newTodo.dueDate,
+                    priority: newTodo.priority,
+                    user_id: userId,
+                    seen: false
+                },
+                csrfToken: csrfToken
             };
+            
+            // const editTodo = {
+            //     id: newTodo.id,
+            //     description: newTodo.description,
+            //     project: newTodo.project,
+            //     comments: newTodo.comments,
+            //     due_date: newTodo.dueDate,
+            //     priority: newTodo.priority,
+            //     user_id: userId,
+            //     seen: false
+            // };
     
-            dispatch(updateTodoApi(editTodo));
+            dispatch(updateTodoApi(credentials));
     
             // close window and reset window inputs and updateTodoSlice state
             closePopuphandler();

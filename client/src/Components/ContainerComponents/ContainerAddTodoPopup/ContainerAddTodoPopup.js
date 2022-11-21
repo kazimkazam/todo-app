@@ -5,17 +5,20 @@ import { handleChange, handleDate, handleReset } from "../../../redux/features/a
 import { selectUserId } from "../../../redux/features/loginSlice";
 import { getTodosApi, addTodoApi } from "../../../resources/utils/callBackendApi";
 import { useEffect } from "react";
+import { handleTrigger, selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
 
 const ContainerAddTodoPopup = () => {
     const newTodo = useSelector(selectNewTodo);
     const userId = useSelector(selectUserId);
+    var csrfToken = useSelector(selectCsrfToken);
+    // const csrfTrigger = useSelector(selectCsrfTrigger);
 
     const dispatch = useDispatch();
 
     // convert the date inputs into one string date that can be submitted when the post request is sent
     useEffect(() => {
         dispatch(handleDate());
-    }, [ newTodo, dispatch ]);
+    }, [ newTodo ]);
 
     // close window handler
     const closePopuphandler = () => {
@@ -45,19 +48,41 @@ const ContainerAddTodoPopup = () => {
     // send post request on button click
     const onAddHandler = () => {
         if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
-            dispatch(addTodoApi({
-                description: newTodo.description,
-                project: newTodo.project,
-                comments: newTodo.comments,
-                due_date: newTodo.dueDate,
-                priority: newTodo.priority,
-                user_id: userId,
-                seen: false
-            }));
+            // dispatch(handleTrigger());
+            let credentials = {
+                newTodo: {
+                    description: newTodo.description,
+                    project: newTodo.project,
+                    comments: newTodo.comments,
+                    due_date: newTodo.dueDate,
+                    priority: newTodo.priority,
+                    user_id: userId,
+                    seen: false
+                },
+                csrfToken: csrfToken
+            };
+            dispatch(addTodoApi(credentials));
+            // dispatch(addTodoApi({
+            //     description: newTodo.description,
+            //     project: newTodo.project,
+            //     comments: newTodo.comments,
+            //     due_date: newTodo.dueDate,
+            //     priority: newTodo.priority,
+            //     user_id: userId,
+            //     seen: false
+            // }));
     
-            dispatch(getTodosApi({
-                user_id: userId
-            }));
+            // dispatch(handleTrigger());
+            credentials = {
+                getTodos: {
+                    user_id: userId
+                },
+                csrfToken: csrfToken
+            };
+            dispatch(getTodosApi(credentials))
+            // dispatch(getTodosApi({
+            //     user_id: userId
+            // }));
     
             // close window and reset window inputs and addTodosSlice state
             closePopuphandler();

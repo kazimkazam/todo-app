@@ -6,6 +6,7 @@ import { todosSlice } from '../features/todosSlice';
 import { addTodosSlice } from '../features/addTodosSlice';
 import { updateTodoSlice } from '../features/updateTodoSlice';
 import { deleteTodoSlice } from '../features/deleteTodosSlice';
+import { csrfTokenSlice } from '../features/csrfTokenSlice';
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
         addTodos: addTodosSlice.reducer,
         updateTodo: updateTodoSlice.reducer,
         deleteTodo: deleteTodoSlice.reducer,
+        csrfTokenState: csrfTokenSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: {

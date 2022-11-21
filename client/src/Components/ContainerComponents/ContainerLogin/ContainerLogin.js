@@ -5,16 +5,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectEmail, selectPassword, selectIsLoggedIn, selectFetchStatus } from "../../../redux/features/loginSlice";
 import { handleChange } from '../../../redux/features/loginSlice';
 import { useEffect } from "react";
+import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
+import { getCsrfToken } from "../../../resources/utils/getCsrfToken";
 
 const ContainerLogin = () => {
     const email = useSelector(selectEmail);
     const password = useSelector(selectPassword);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const fetchStatus = useSelector(selectFetchStatus);
+    var csrfToken = useSelector(selectCsrfToken);
 
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
+
+    // get csrf token at first render
+    useEffect(() => {
+        dispatch(getCsrfToken());
+    }, [ ]);
 
     // check if user/password input warning should or should not appear
     useEffect(() => {
@@ -39,24 +47,27 @@ const ContainerLogin = () => {
     };
 
     // dispatch the login attempt on button click
-    const clickHandler = () => {
-        const credentials = {
-            email: email,
-            password: password
+    const loginHandler = async () => {
+        // get a new csrf token
+        dispatch(getCsrfToken());
+        let credentials = {
+            loginCredentials: {
+                email: email,
+                password: password
+            },
+            csrfToken: csrfToken
         };
-
         dispatch(loginApi(credentials));
+    };
+
+    const clickHandler = async () => {
+        loginHandler();
     };
 
     // dispatch the login attempt on enter key keydown
     const enterKeyDownHandler = (event) => {
-        const credentials = {
-            email: email,
-            password: password
-        };
-
         if (event.key === 'Enter') {
-            dispatch(loginApi(credentials));
+            loginHandler();
         };
     };
 

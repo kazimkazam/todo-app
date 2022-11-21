@@ -10,12 +10,15 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getYearFromIso8601, getMonthFromIso8601, getDateDayFromIso8601, getHourFromIso8601, getMinutesFromIso8601 } from "../../../resources/utils/getDateFromIso8601";
 import { handlePriority } from "../../../resources/utils/handlePriority";
+import { getCsrfToken } from '../../../resources/utils/getCsrfToken';
+import { selectCsrfToken } from '../../../redux/features/csrfTokenSlice';
 
 const ContainerInbox = () => {
     const userId = useSelector(selectUserId);
     const allTodos = useSelector(selectTodos);
     const viewType = useSelector(selectViewType);
     const deleteFetchStatus = useSelector(selectFetchStatus);
+    var csrfToken = useSelector(selectCsrfToken);
 
     const inboxTodos = allTodos.filter(todo => todo.seen === false);
 
@@ -29,30 +32,47 @@ const ContainerInbox = () => {
         };
     }, [ userId, navigate ]);
 
+    // get csrf token at first render
+    useEffect(() => {
+        dispatch(getCsrfToken());
+    }, [ ]);
+
     // get all todos
     const trigger = allTodos.length;
     useEffect(() => {
-        dispatch(getTodosApi({
-            user_id: userId
-        }));
-    }, [ trigger, userId, dispatch ]);
+        // get a new csrf token
+        dispatch(getCsrfToken());
+        const credentials = {
+            getTodos: {
+                user_id: userId
+            },
+            csrfToken: csrfToken
+        };
+        dispatch(getTodosApi(credentials));
+    }, [ trigger, userId ]);
 
     // update seen state of inbox todos from false to true
     // the next time, they will not appear on inbox
     useEffect(() => {
         for (let todo of inboxTodos) {
-            const newTodo = {
-                id: todo.id,
-                description: todo.description,
-                project: todo.project,
-                comments: todo.comments,
-                due_date: todo.due_date,
-                priority: todo.priority,
-                user_id: userId,
-                seen: true
+            // get a new csrf token
+            dispatch(getCsrfToken());
+            const credentials = {
+                newTodo: {
+                    id: todo.id,
+                    description: todo.description,
+                    project: todo.project,
+                    comments: todo.comments,
+                    due_date: todo.due_date,
+                    priority: todo.priority,
+                    user_id: userId,
+                    seen: true
+                },
+                csrfToken: csrfToken
             };
 
-            dispatch(updateTodoApi(newTodo));
+            // get a new csrf token
+            dispatch(updateTodoApi(credentials));
         };
     });
 
@@ -64,10 +84,23 @@ const ContainerInbox = () => {
     // handler to delete todos
     const deleteTodoHandler = (event) => {
         // delete todo, refetch todos to update all todos array and reset delete fetch state
-        dispatch(deleteTodoApi(event.target.name));
-        dispatch(getTodosApi({
-            user_id: userId
-        }));
+        // get a new csrf token
+        dispatch(getCsrfToken());
+        let credentials = {
+            todoId: event.target.name,
+            csrfToken: csrfToken
+        };
+        dispatch(deleteTodoApi(credentials));
+
+        // get a new csrf token
+        dispatch(getCsrfToken());
+        credentials = {
+            getTodos: {
+                user_id: userId
+            },
+            csrfToken: csrfToken
+        };
+        dispatch(getTodosApi(credentials))
 
         if (deleteFetchStatus === 'succeded') {
             dispatch(handleReset());

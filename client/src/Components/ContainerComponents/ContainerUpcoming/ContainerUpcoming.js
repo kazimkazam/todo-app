@@ -9,12 +9,15 @@ import { getTodosApi, deleteTodoApi } from "../../../resources/utils/callBackend
 import { handleId } from "../../../redux/features/updateTodoSlice";
 import { getYearFromIso8601, getMonthFromIso8601, getDateDayFromIso8601, getHourFromIso8601, getMinutesFromIso8601 } from "../../../resources/utils/getDateFromIso8601";
 import { handlePriority } from "../../../resources/utils/handlePriority";
+import { getCsrfToken } from "../../../resources/utils/getCsrfToken";
+import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
 
 const ContainerUpcoming = () => {
     const userId = useSelector(selectUserId);
     const allTodos = useSelector(selectTodos);
     const viewType = useSelector(selectViewType);
     const deleteFetchStatus = useSelector(selectFetchStatus);
+    var csrfToken = useSelector(selectCsrfToken);
 
     const date = new Date();
     const dateToday = date.getDate();
@@ -29,15 +32,26 @@ const ContainerUpcoming = () => {
         if (!userId) {
             navigate('/');
         };
-    }, [ userId, navigate ]);
+    }, [ userId ]);
+
+    // get csrf token at first render
+    useEffect(() => {
+        dispatch(getCsrfToken());
+    }, [ ]);
 
     // get all todos
     const trigger = allTodos.length;
     useEffect(() => {
-        dispatch(getTodosApi({
-            user_id: userId
-        }));
-    }, [ trigger, userId, dispatch ]);
+        // get a new csrf token
+        dispatch(getCsrfToken());
+        let credentials = {
+            getTodos: {
+                user_id: userId
+            },
+            csrfToken: csrfToken
+        };
+        dispatch(getTodosApi(credentials))
+    }, [ trigger, userId ]);
 
     // handler to change todos view type
     const viewTypeChangeHandler = (event) => {
@@ -47,10 +61,23 @@ const ContainerUpcoming = () => {
     // handler to delete todos
     const deleteTodoHandler = (event) => {
         // delete todo, refetch todos to update all todos array and reset delete fetch state
-        dispatch(deleteTodoApi(event.target.name));
-        dispatch(getTodosApi({
-            user_id: userId
-        }));
+        // get a new csrf token
+        dispatch(getCsrfToken());
+        let credentials = {
+            todoId: event.target.name,
+            csrfToken: csrfToken
+        };
+        dispatch(deleteTodoApi(credentials));
+
+        // get a new csrf token
+        dispatch(getCsrfToken());
+        credentials = {
+            getTodos: {
+                user_id: userId
+            },
+            csrfToken: csrfToken
+        };
+        dispatch(getTodosApi(credentials))
 
         if (deleteFetchStatus === 'succeded') {
             dispatch(handleReset());
