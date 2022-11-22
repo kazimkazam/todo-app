@@ -27,13 +27,13 @@ const ContainerLogin = () => {
     // check if user/password input warning should or should not appear
     useEffect(() => {
         if (isLoggedIn && fetchStatus === 'succeded') {
-            document.getElementById('warning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
+            document.getElementById('loginWarning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
             navigate('/inbox');
         } else if (fetchStatus === 'idle') {
-            document.getElementById('warning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
+            document.getElementById('loginWarning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
         } else {
             setTimeout(() => {
-                const element = document.getElementById('warning');
+                const element = document.getElementById('loginWarning');
                 if (element) {
                     element.className = 'text-center bg-amber-700 w-1/4 text-lg rounded-t';
                 };

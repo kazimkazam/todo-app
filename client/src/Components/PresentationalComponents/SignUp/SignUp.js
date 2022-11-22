@@ -4,7 +4,7 @@ const SignUp = (props) => {
     return(
         <div className={ 'Authentication bg-neutral-900 text-slate-50 font-sans h-screen flex flex-col justify-between' } >
             <div className={ 'flex flex-col justify-center place-items-center my-40' }>
-                <div id={ 'warning' } className={ 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t' } >
+                <div id={ 'signupWarning' } className={ 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t' } >
                     <p>Ooops... Wrong email and/or password! Please try again.</p>
                 </div>
                 

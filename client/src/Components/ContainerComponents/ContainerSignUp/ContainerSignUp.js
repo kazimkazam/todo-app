@@ -28,14 +28,14 @@ const ContainerSignUp = () => {
     // check if user/password input warning should or should not appear
     useEffect(() => {
         if ((isSignedUp && fetchStatus === 'succeded')) {
-            document.getElementById('warning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
+            document.getElementById('signupWarning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
             navigate('/');
             dispatch(handleReset());
         } else if (fetchStatus === 'idle') {
-            document.getElementById('warning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
+            document.getElementById('signupWarning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
         } else {
             setTimeout(() => {
-                document.getElementById('warning').className = 'text-center bg-amber-700 w-1/4 text-lg rounded-t';
+                document.getElementById('signupWarning').className = 'text-center bg-amber-700 w-1/4 text-lg rounded-t';
             }, 500);
         };
     }, [ isSignedUp, fetchStatus, navigate, dispatch ]);
