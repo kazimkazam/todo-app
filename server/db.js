@@ -5,24 +5,24 @@ const { Pool } = require('pg');
 
 const salt = bcrypt.genSaltSync(10);
 
-// const pool = new Pool({
-//     user: process.env.DB_USER,
-//     host: process.env.HOST,
-//     database: process.env.DATABASE,
-//     password: process.env.DB_PASS,
-//     port: 5432,
-// });
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.HOST,
+    database: process.env.DATABASE,
+    password: process.env.DB_PASS,
+    port: 5432,
+});
 
 // -----------------------------------------------
 // if testing
 
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.HOST,
-    database: process.env.DATABASE_TEST,
-    password: process.env.DB_PASS,
-    port: 5432,
-});
+// const pool = new Pool({
+//     user: process.env.DB_USER,
+//     host: process.env.HOST,
+//     database: process.env.DATABASE_TEST,
+//     password: process.env.DB_PASS,
+//     port: 5432,
+// });
 
 // -----------------------------------------------
 
@@ -66,7 +66,7 @@ const addTodo = (req, res, next) => {
         if (error) {
             throw error;
         };
-        res.status(201).json('todo added to todo list.');
+        res.status(201).json('The todo was added to todo list.');
         next();
     });
 };
@@ -153,9 +153,11 @@ const login = (req, res, next) => {
                         username: req.session.user.username,
                         userId: req.session.user.userId
                     });
-                };
+                } else {
+                    res.status(400).json('Incorrect e-mail and/or password!');
+                }
             } else {
-                res.status(400).json('Incorrect e-mail and/or password!');
+                res.status(404).json('Account not found!');
             };
             next();
         });
@@ -174,7 +176,7 @@ const logout = (req, res, next) => {
             if (err) {
                 res.status(400).send('Unable to logout!');
             } else {
-                res.status(200).end('Logout successful');
+                res.status(200).end('Logout successful.');
             };
         });
     } else {

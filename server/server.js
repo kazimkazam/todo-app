@@ -52,7 +52,7 @@ const csurfProtection = csurf({
 
 app.use(csurfProtection);
 
-app.get('/getCsrfToken', csurfProtection, (req, res) => {
+app.get('/getCsrfToken', (req, res) => {
     res.send({ csrfToken: req.csrfToken() });
 });
 
@@ -105,6 +105,6 @@ app.listen(port, () => {
 // ---------------------------------------------------
 
 // if testing
-module.exports = {
-    app
-};
+// module.exports = {
+//     app
+// };

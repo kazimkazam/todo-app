@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "mocha",
+    "test-coverage": "nyc --reporter=text mocha"
   },
   "keywords": [],
   "author": "",
@@ -24,13 +25,9 @@
     "pg-promise": "^10.12.1"
   },
   "devDependencies": {
-    "jest": "^29.3.1",
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0",
+    "nyc": "^15.1.0",
     "supertest": "^6.3.1"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ]
   }
 }
