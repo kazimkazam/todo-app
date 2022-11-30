@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginApi } from "../../resources/utils/callBackendApi";
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 export const loginSlice = createSlice({
     name: 'loginState',
@@ -40,7 +40,7 @@ export const loginSlice = createSlice({
         .addCase(loginApi.fulfilled, (state, action) => {
             state.errorStatus = null;
             state.fetchStatus = 'succeded';
-            if (action.payload.token === env.LOGIN_TOKEN) {
+            if (action.payload.token === process.env.REACT_APP_LOGIN_TOKEN) {
                 state.isLoggedIn = true;
                 state.password = '';
                 state.username = action.payload.username;

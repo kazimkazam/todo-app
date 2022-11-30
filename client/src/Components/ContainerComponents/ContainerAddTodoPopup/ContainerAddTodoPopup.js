@@ -5,13 +5,12 @@ import { handleChange, handleDate, handleReset } from "../../../redux/features/a
 import { selectUserId } from "../../../redux/features/loginSlice";
 import { getTodosApi, addTodoApi } from "../../../resources/utils/callBackendApi";
 import { useEffect } from "react";
-import { handleTrigger, selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
+import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
 
 const ContainerAddTodoPopup = () => {
     const newTodo = useSelector(selectNewTodo);
     const userId = useSelector(selectUserId);
     var csrfToken = useSelector(selectCsrfToken);
-    // const csrfTrigger = useSelector(selectCsrfTrigger);
 
     const dispatch = useDispatch();
 
@@ -38,6 +37,7 @@ const ContainerAddTodoPopup = () => {
 
         // hide the warning in the add todo window
         document.getElementById('addTodoWarning').className = 'bg-amber-700 text-center hidden';
+        document.getElementById('addTodoInputInvalidWarning').className = 'bg-amber-700 text-center hidden';
     };
 
     // handle input changes and pass them into the variables state
@@ -47,47 +47,37 @@ const ContainerAddTodoPopup = () => {
 
     // send post request on button click
     const onAddHandler = () => {
-        if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
-            // dispatch(handleTrigger());
-            let credentials = {
-                newTodo: {
-                    description: newTodo.description,
-                    project: newTodo.project,
-                    comments: newTodo.comments,
-                    due_date: newTodo.dueDate,
-                    priority: newTodo.priority,
-                    user_id: userId,
-                    seen: false
-                },
-                csrfToken: csrfToken
-            };
-            dispatch(addTodoApi(credentials));
-            // dispatch(addTodoApi({
-            //     description: newTodo.description,
-            //     project: newTodo.project,
-            //     comments: newTodo.comments,
-            //     due_date: newTodo.dueDate,
-            //     priority: newTodo.priority,
-            //     user_id: userId,
-            //     seen: false
-            // }));
+        if (Number(document.getElementById('dueMinutes').value) >= 0 && Number(document.getElementById('dueMinutes').value) <= 59 && Number(document.getElementById('dueHour').value) >= 0 && Number(document.getElementById('dueHour').value) <= 23 && Number(document.getElementById('dueDay').value) > 0 && Number(document.getElementById('dueDay').value) <= 31 && Number(document.getElementById('dueMonth').value) > 0 && Number(document.getElementById('dueMonth').value) <= 12 && Number(document.getElementById('dueYear').value) >= 2021 && Number(document.getElementById('dueYear').value) < 2100) {
+            if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
+                let credentials = {
+                    newTodo: {
+                        description: newTodo.description,
+                        project: newTodo.project,
+                        comments: newTodo.comments,
+                        due_date: newTodo.dueDate,
+                        priority: newTodo.priority,
+                        user_id: userId,
+                        seen: false
+                    },
+                    csrfToken: csrfToken
+                };
+                dispatch(addTodoApi(credentials));
     
-            // dispatch(handleTrigger());
-            credentials = {
-                getTodos: {
-                    user_id: userId
-                },
-                csrfToken: csrfToken
+                credentials = {
+                    getTodos: {
+                        user_id: userId
+                    },
+                    csrfToken: csrfToken
+                };
+                dispatch(getTodosApi(credentials))
+        
+                // close window and reset window inputs and addTodosSlice state
+                closePopuphandler();
+            } else {
+                document.getElementById('addTodoWarning').className = 'bg-amber-700 text-center';
             };
-            dispatch(getTodosApi(credentials))
-            // dispatch(getTodosApi({
-            //     user_id: userId
-            // }));
-    
-            // close window and reset window inputs and addTodosSlice state
-            closePopuphandler();
         } else {
-            document.getElementById('addTodoWarning').className = 'bg-amber-700 text-center';
+            document.getElementById('addTodoInputInvalidWarning').className = 'bg-amber-700 text-center';
         };
     };
 

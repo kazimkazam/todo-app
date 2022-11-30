@@ -12,12 +12,14 @@ import { getYearFromIso8601, getMonthFromIso8601, getDateDayFromIso8601, getHour
 import { handlePriority } from "../../../resources/utils/handlePriority";
 import { getCsrfToken } from '../../../resources/utils/getCsrfToken';
 import { selectCsrfToken } from '../../../redux/features/csrfTokenSlice';
+import { selectFetchStatus as selectAddTodosFetchStatus } from '../../../redux/features/addTodosSlice';
 
 const ContainerInbox = () => {
     const userId = useSelector(selectUserId);
     const allTodos = useSelector(selectTodos);
     const viewType = useSelector(selectViewType);
     const deleteFetchStatus = useSelector(selectFetchStatus);
+    const possibleNewTodo = useSelector(selectAddTodosFetchStatus); // fetch may be successful or unsuccessful
     var csrfToken = useSelector(selectCsrfToken);
 
     const inboxTodos = allTodos.filter(todo => todo.seen === false);
@@ -38,7 +40,6 @@ const ContainerInbox = () => {
     }, [ ]);
 
     // get all todos
-    const trigger = allTodos.length;
     useEffect(() => {
         // get a new csrf token
         dispatch(getCsrfToken());
@@ -49,7 +50,7 @@ const ContainerInbox = () => {
             csrfToken: csrfToken
         };
         dispatch(getTodosApi(credentials));
-    }, [ trigger, userId ]);
+    }, [ possibleNewTodo ]);
 
     // update seen state of inbox todos from false to true
     // the next time, they will not appear on inbox
@@ -58,7 +59,7 @@ const ContainerInbox = () => {
             // get a new csrf token
             dispatch(getCsrfToken());
             const credentials = {
-                newTodo: {
+                editTodo: {
                     id: todo.id,
                     description: todo.description,
                     project: todo.project,
@@ -71,10 +72,10 @@ const ContainerInbox = () => {
                 csrfToken: csrfToken
             };
 
-            // get a new csrf token
+            // updade todo to seen = true
             dispatch(updateTodoApi(credentials));
         };
-    });
+    }, [ ]);
 
     // handler to change todos view type
     const viewTypeChangeHandler = (event) => {
@@ -112,15 +113,15 @@ const ContainerInbox = () => {
         dispatch(handleId(event));
         const selectedTodoToEdit = allTodos.filter(todo => todo.id === Number(event.target.name))[0];
 
-        document.getElementById('editDescription').value = selectedTodoToEdit.description;
-        document.getElementById('editProject').value = selectedTodoToEdit.project;
-        document.getElementById('editComments').value = selectedTodoToEdit.comments;
-        document.getElementById('editDueDay').value = getDateDayFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editDueMonth').value = getMonthFromIso8601(selectedTodoToEdit.due_date); 
-        document.getElementById('editDueYear').value = getYearFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editDueHour').value = getHourFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editDueMinutes').value = getMinutesFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editPriority').value = handlePriority(selectedTodoToEdit.priority);
+        document.getElementById('editDescription').placeholder = selectedTodoToEdit.description;
+        document.getElementById('editProject').placeholder = selectedTodoToEdit.project;
+        document.getElementById('editComments').placeholder = selectedTodoToEdit.comments;
+        document.getElementById('editDueDay').placeholder = getDateDayFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editDueMonth').placeholder = getMonthFromIso8601(selectedTodoToEdit.due_date); 
+        document.getElementById('editDueYear').placeholder = getYearFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editDueHour').placeholder = getHourFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editDueMinutes').placeholder = getMinutesFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editPriority').placeholder = handlePriority(selectedTodoToEdit.priority);
 
         document.getElementById('editTodosWindow').className = 'absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50';
     };

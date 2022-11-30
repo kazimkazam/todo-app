@@ -21,8 +21,23 @@ const ContainerUpcoming = () => {
 
     const date = new Date();
     const dateToday = date.getDate();
+    const dateMonth = date.getMonth() + 1;
+    const dateYear = date.getFullYear();
 
-    const upcomingTodos = allTodos.filter(todo => Number(getDateDayFromIso8601(todo.due_date)) > dateToday);
+    const upcomingTodos = allTodos.filter(todo => {
+        const todoDueDay = Number(getDateDayFromIso8601(todo.due_date));
+        const todoDueMonth = Number(getMonthFromIso8601(todo.due_date));
+        const todoDueYear = Number(getYearFromIso8601(todo.due_date));
+
+        if ((todoDueDay < dateToday && todoDueMonth > dateMonth && todoDueYear >= dateYear) || (todoDueDay > dateToday && todoDueMonth >= dateMonth && todoDueYear >= dateYear)) {
+            console.log(Number(getDateDayFromIso8601(todo.due_date)));
+            console.log(Number(getMonthFromIso8601(todo.due_date)));
+            console.log(Number(getYearFromIso8601(todo.due_date)));
+            return todo;
+        };
+    });
+
+    console.log(upcomingTodos);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -89,15 +104,15 @@ const ContainerUpcoming = () => {
         dispatch(handleId(event));
         const selectedTodoToEdit = allTodos.filter(todo => todo.id === Number(event.target.name))[0];
 
-        document.getElementById('editDescription').value = selectedTodoToEdit.description;
-        document.getElementById('editProject').value = selectedTodoToEdit.project;
-        document.getElementById('editComments').value = selectedTodoToEdit.comments;
-        document.getElementById('editDueDay').value = getDateDayFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editDueMonth').value = getMonthFromIso8601(selectedTodoToEdit.due_date); 
-        document.getElementById('editDueYear').value = getYearFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editDueHour').value = getHourFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editDueMinutes').value = getMinutesFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editPriority').value = handlePriority(selectedTodoToEdit.priority);
+        document.getElementById('editDescription').placeholder = selectedTodoToEdit.description;
+        document.getElementById('editProject').placeholder = selectedTodoToEdit.project;
+        document.getElementById('editComments').placeholder = selectedTodoToEdit.comments;
+        document.getElementById('editDueDay').placeholder = getDateDayFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editDueMonth').placeholder = getMonthFromIso8601(selectedTodoToEdit.due_date); 
+        document.getElementById('editDueYear').placeholder = getYearFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editDueHour').placeholder = getHourFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editDueMinutes').placeholder = getMinutesFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editPriority').placeholder = handlePriority(selectedTodoToEdit.priority);
 
         document.getElementById('editTodosWindow').className = 'absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50';
     };

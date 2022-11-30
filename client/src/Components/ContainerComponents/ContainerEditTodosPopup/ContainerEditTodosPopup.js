@@ -5,13 +5,12 @@ import { selectNewTodo } from "../../../redux/features/updateTodoSlice";
 import { selectUserId } from "../../../redux/features/loginSlice";
 import { updateTodoApi } from "../../../resources/utils/callBackendApi";
 import { useEffect } from "react";
-import { handleTrigger, selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
+import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
 
 const ContainerEditTodosPopup = () => {
     const userId = useSelector(selectUserId);
     const newTodo = useSelector(selectNewTodo);
     var csrfToken = useSelector(selectCsrfToken);
-    // const csrfTrigger = useSelector(selectCsrfTrigger);
 
     const dispatch = useDispatch();
 
@@ -38,6 +37,7 @@ const ContainerEditTodosPopup = () => {
 
         // hide the warning in the edit todo window
         document.getElementById('editTodoWarning').className = 'bg-amber-700 text-center hidden';
+        document.getElementById('editTodoInputInvalidWarning').className = 'bg-amber-700 text-center hidden';
     };
 
     // handle input changes and pass them into the variables state
@@ -47,40 +47,32 @@ const ContainerEditTodosPopup = () => {
 
     // send put request on button click
     const onSubmitEditHandler = () => {
-        if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
-            // dispatch(handleTrigger());
-            let credentials = {
-                editTodo: {
-                    id: newTodo.id,
-                    description: newTodo.description,
-                    project: newTodo.project,
-                    comments: newTodo.comments,
-                    due_date: newTodo.dueDate,
-                    priority: newTodo.priority,
-                    user_id: userId,
-                    seen: false
-                },
-                csrfToken: csrfToken
+        if (Number(document.getElementById('editDueMinutes').value) >= 0 && Number(document.getElementById('editDueMinutes').value) <= 59 && Number(document.getElementById('editDueHour').value) >= 0 && Number(document.getElementById('editDueHour').value) <= 23 && Number(document.getElementById('editDueDay').value) > 0 && Number(document.getElementById('editDueDay').value) <= 31 && Number(document.getElementById('editDueMonth').value) > 0 && Number(document.getElementById('editDueMonth').value) <= 12 && Number(document.getElementById('editDueYear').value) >= 2021 && Number(document.getElementById('editDueYear').value) < 2100) {
+            if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
+                let credentials = {
+                    editTodo: {
+                        id: newTodo.id,
+                        description: newTodo.description,
+                        project: newTodo.project,
+                        comments: newTodo.comments,
+                        due_date: newTodo.dueDate,
+                        priority: newTodo.priority,
+                        user_id: userId,
+                        seen: false
+                    },
+                    csrfToken: csrfToken
+                };
+        
+                dispatch(updateTodoApi(credentials));
+        
+                // close window and reset window inputs and updateTodoSlice state
+                closePopuphandler();
+            } else {
+                document.getElementById('editTodoWarning').className = 'bg-amber-700 text-center';
             };
-            
-            // const editTodo = {
-            //     id: newTodo.id,
-            //     description: newTodo.description,
-            //     project: newTodo.project,
-            //     comments: newTodo.comments,
-            //     due_date: newTodo.dueDate,
-            //     priority: newTodo.priority,
-            //     user_id: userId,
-            //     seen: false
-            // };
-    
-            dispatch(updateTodoApi(credentials));
-    
-            // close window and reset window inputs and updateTodoSlice state
-            closePopuphandler();
         } else {
-            document.getElementById('editTodoWarning').className = 'bg-amber-700 text-center';
-        };
+            document.getElementById('editTodoInputInvalidWarning').className = 'bg-amber-700 text-center';
+        }
     };
 
     // close edit todo popup windown on escape key keydown, and submit put request if enter key keydown

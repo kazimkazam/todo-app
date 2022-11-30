@@ -85,5 +85,6 @@ export const addTodosSlice = createSlice({
 export const { handleChange, handleDate, handleReset } = addTodosSlice.actions;
 
 export const selectNewTodo = (state) => state.addTodos.newTodo;
+export const selectFetchStatus = (state) => state.addTodos.fetchStatus;
 
 export default addTodosSlice.reducer;

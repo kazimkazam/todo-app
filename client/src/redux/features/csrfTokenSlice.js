@@ -5,7 +5,7 @@ export const csrfTokenSlice = createSlice({
     name: 'csrfTokenState',
     initialState: {
         csrfToken: null,
-        fetchStatuts: 'idle',
+        fetchStatus: 'idle',
         errorStatus: null,
     },
     reducers: {
@@ -14,14 +14,14 @@ export const csrfTokenSlice = createSlice({
     extraReducers: builder => {
         builder
         .addCase(getCsrfToken.rejected, (state,action) => {
-            state.fetchStatuts = 'failed';
+            state.fetchStatus = 'failed';
             state.errorStatus = action.error.message;
         })
         .addCase(getCsrfToken.pending, (state,action) => {
-            state.fetchStatuts = 'loading';
+            state.fetchStatus = 'loading';
         })
         .addCase(getCsrfToken.fulfilled, (state,action) => {
-            state.fetchStatuts = 'succeded';
+            state.fetchStatus = 'succeded';
             state.errorStatus = null;
             state.csrfToken = action.payload.csrfToken;
         })

@@ -32,6 +32,7 @@ export const todosSlice = createSlice({
         },
 
         handleSearch: (state, action) => {
+            state.searchResults = [];
             state.todos.filter(todo => {
                 if (todo.description.includes(state.searchTopic) || todo.project.includes(state.searchTopic) || todo.comments.includes(state.searchTopic)) {
                     state.searchResults.push(todo);

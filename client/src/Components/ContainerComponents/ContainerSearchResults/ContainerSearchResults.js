@@ -61,15 +61,15 @@ const ContainerSearchResults = () => {
         dispatch(handleId(event));
         const selectedTodoToEdit = allTodos.filter(todo => todo.id === Number(event.target.name))[0];
 
-        document.getElementById('editDescription').value = selectedTodoToEdit.description;
-        document.getElementById('editProject').value = selectedTodoToEdit.project;
-        document.getElementById('editComments').value = selectedTodoToEdit.comments;
-        document.getElementById('editDueDay').value = getDateDayFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editDueMonth').value = getMonthFromIso8601(selectedTodoToEdit.due_date); 
-        document.getElementById('editDueYear').value = getYearFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editDueHour').value = getHourFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editDueMinutes').value = getMinutesFromIso8601(selectedTodoToEdit.due_date);
-        document.getElementById('editPriority').value = handlePriority(selectedTodoToEdit.priority);
+        document.getElementById('editDescription').placeholder = selectedTodoToEdit.description;
+        document.getElementById('editProject').placeholder = selectedTodoToEdit.project;
+        document.getElementById('editComments').placeholder = selectedTodoToEdit.comments;
+        document.getElementById('editDueDay').placeholder = getDateDayFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editDueMonth').placeholder = getMonthFromIso8601(selectedTodoToEdit.due_date); 
+        document.getElementById('editDueYear').placeholder = getYearFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editDueHour').placeholder = getHourFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editDueMinutes').placeholder = getMinutesFromIso8601(selectedTodoToEdit.due_date);
+        document.getElementById('editPriority').placeholder = handlePriority(selectedTodoToEdit.priority);
 
         document.getElementById('editTodosWindow').className = 'absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50';
     };

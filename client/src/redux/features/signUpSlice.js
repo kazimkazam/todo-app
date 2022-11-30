@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { signUpApi } from "../../resources/utils/callBackendApi";
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 export const signUpSlice = createSlice({
     name: 'signUpState',
@@ -38,7 +38,7 @@ export const signUpSlice = createSlice({
         })
         .addCase(signUpApi.fulfilled, (state, action) => {
             state.fetchStatus = 'succeded';
-            if (action.payload.token === env.SIGNUP_TOKEN) {
+            if (action.payload.token === process.env.REACT_APP_SIGNUP_TOKEN) {
                 state.isSignedUp = true;
                 state.password = '';
             };

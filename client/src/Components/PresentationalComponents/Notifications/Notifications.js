@@ -1,9 +1,9 @@
 const Notifications = (props) => {
     return(
-        <div className={ 'absolute top-20 right-20 bg-[#0B5269] w-96 rounded -z-50' } id={ 'notificationsWindow' } >
+        <div className={ 'absolute top-20 right-20 bg-[#0B5269] w-96 rounded -z-50' } id={ 'notificationsWindow' } data-testid={ 'notificationsWindow' } >
             <div className={ 'flex justify-between m-1.5 bg-[#316B83] p-2 rounded' } >
                 <h3 className={ 'text-lg font-bold' } >Add todo</h3>
-                <img className={ 'cursor-pointer hover:scale-125' } src={ require('../../../resources/icons/close.png') } width={ 30 } title={ 'Close window' } alt={ 'Close' } onClick={ props.onClick } />
+                <img className={ 'cursor-pointer hover:scale-125' } src={ require('../../../resources/icons/close.png') } width={ 30 } title={ 'Close window' } alt={ 'Close' } onClick={ props.onClick } data-testid={ 'notificationsWindowClose' } />
             </div>
 
             <div className={ 'bg-neutral-900 m-2 rounded' } >

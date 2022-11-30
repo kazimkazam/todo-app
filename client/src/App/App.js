@@ -5,7 +5,7 @@ import { ContainerSignUp } from '../Components/ContainerComponents/ContainerSign
 
 function App() {
   return (
-    <div className={ 'App bg-neutral-900 h-screen text-slate-50 font-myFonts' }>
+    <div className={ 'bg-neutral-900 h-screen text-slate-50 font-myFonts' }>
       <Router>
         <Routes>
           <Route path={ '/' } element={ <ContainerLogin /> } ></Route>

@@ -3,10 +3,10 @@ import { getDateFromIso8601 } from '../../../resources/utils/getDateFromIso8601'
 const Inbox = (props) => {
     if (props.viewType === 'board') {
         return(
-            <div className={ 'm-4' } onClick={ props.closeWindowsOnClick } >
+            <div className={ 'm-4' } onClick={ props.closeWindowsOnClick } data-testid={ 'inbox' } >
                 <div className={ 'bg-[#0B5269] ml-auto p-2 w-52 rounded flex justify-center' } >
                     <label className={ 'text-xl ' } >View :</label>
-                    <select name={ 'viewType' } className={ 'bg-[#0B5269] text-lg text-center w-28 outline-none' } value={ props.viewType } onChange={ props.onChange } >
+                    <select name={ 'viewType' } className={ 'bg-[#0B5269] text-lg text-center w-28 outline-none cursor-pointer' } value={ props.viewType } onChange={ props.onChange } >
                         <option value={ 'board' } >Board</option>
                         <option value={ 'list' } >List</option>
                     </select>
@@ -76,7 +76,7 @@ const Inbox = (props) => {
         );
     } else if (props.viewType === 'list') {
         return(
-            <div className={ 'm-4' } onClick={ props.closeWindowsOnClick } >
+            <div className={ 'm-4' } onClick={ props.closeWindowsOnClick } data-testid={ 'inbox' } >
                 <div className={ 'bg-[#0B5269] ml-auto p-2 w-52 rounded flex justify-center' } >
                     <label className={ 'text-xl' } >View :</label>
                     <select name={ 'viewType' } className={ 'bg-[#0B5269] text-lg text-center w-28 outline-none' } value={ props.viewType } onChange={ props.onChange } >
