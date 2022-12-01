@@ -16,12 +16,12 @@ const Layout = () => {
                 <ContainerHeader />
             </div>
 
-            <div className={ 'grid grid-cols-5 gap-2 min-h-[50rem] z-20' }>
-                <div className={ 'col-1 bg-neutral-900 flex justify-center text-lg' } >
+            <div className={ 'flex w-full min-h-[50rem] z-20' }>
+                <div className={ 'w-1/5 bg-neutral-900 flex justify-center text-lg' } >
                     <ContainerSidebar />
                 </div>
 
-                <div className={ 'col-span-4 bg-neutral-800' } >
+                <div className={ 'w-4/5 bg-neutral-800' } >
                     <Routes>
                         <Route path={ '/inbox' } element={ <ContainerInbox /> }></Route>
                         <Route path={ '/today' } element={ <ContainerToday /> } ></Route>

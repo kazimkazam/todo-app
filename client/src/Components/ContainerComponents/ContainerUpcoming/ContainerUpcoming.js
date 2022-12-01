@@ -30,14 +30,9 @@ const ContainerUpcoming = () => {
         const todoDueYear = Number(getYearFromIso8601(todo.due_date));
 
         if ((todoDueDay < dateToday && todoDueMonth > dateMonth && todoDueYear >= dateYear) || (todoDueDay > dateToday && todoDueMonth >= dateMonth && todoDueYear >= dateYear)) {
-            console.log(Number(getDateDayFromIso8601(todo.due_date)));
-            console.log(Number(getMonthFromIso8601(todo.due_date)));
-            console.log(Number(getYearFromIso8601(todo.due_date)));
             return todo;
         };
     });
-
-    console.log(upcomingTodos);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

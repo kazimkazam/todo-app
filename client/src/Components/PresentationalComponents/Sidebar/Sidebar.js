@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = (props) => {
     return(
-        <div onClick={ props.onClick }>
+        <div className={ 'xxl:w-72 xl:w-72 lg:w-60 mx-2' } onClick={ props.onClick }>
             <ul>
-                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToInbox' } >
+                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToInbox' } >
                     <NavLink to={ '/inbox' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/inbox.png') } width={ 30 } alt={ 'inbox icon' } className={ 'mr-3' } />
@@ -12,7 +12,7 @@ const Sidebar = (props) => {
                         </div>
                     </NavLink>
                 </li>
-                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToToday' } >
+                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToToday' } >
                     <NavLink to={ '/today' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/today.png') } width={ 30 } alt={ 'today icon' } className={ 'mr-3' } />
@@ -21,7 +21,7 @@ const Sidebar = (props) => {
                     </NavLink>
                     
                 </li>
-                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToUpcoming' } >
+                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToUpcoming' } >
                     <NavLink to={ '/upcoming' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/upcoming.png') } width={ 30 } alt={ 'upcoming icon' } className={ 'mr-3' } />
@@ -29,7 +29,7 @@ const Sidebar = (props) => {
                         </div>
                     </NavLink>
                 </li>
-                <li className={ 'hover:bg-neutral-700 block w-72 p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToAllTodos' } >
+                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToAllTodos' } >
                     <NavLink to={ '/alltodos' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/folders.png') } width={ 30 } alt={ 'all todos icon' } className={ 'mr-3' } />
@@ -39,13 +39,11 @@ const Sidebar = (props) => {
                 </li>
             </ul>
 
-            <span className={ 'flex w-72 h-1 bg-[#0B5269] mt-5 rounded' } ></span>
+            <span className={ 'flex w-full h-1 bg-[#0B5269] mt-5 rounded' } ></span>
             <div className={ 'flex place-items-center' } >
                 <p className={ 'mt-3 text-xl underline cursor-default' } >Projects</p>
                 <img src={ require('../../../resources/icons/plus.png') } width={ 30 } alt={ 'add new project' } title={ 'Add new project' } className={ 'ml-3 mt-4 p-1 bg-neutral-500 rounded hover:scale-110 cursor-pointer' } />
             </div>
-            
-            
         </div>
     );
 };

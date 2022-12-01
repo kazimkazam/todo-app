@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const Header = (props) => {
     return(
-        <div className={ 'grid grid-cols-4 w-full h-14' } id={ 'header' } onKeyDown={ props.onEscapeKeyDown } >
+        <div className={ 'flex justify-between w-full h-14' } id={ 'header' } onKeyDown={ props.onEscapeKeyDown } >
             {/* logo and title */}
             <div className={ 'col-1 inline-flex justify-start place-items-center mx-14' }>
                 <NavLink to={ '/inbox' } >
@@ -15,7 +15,7 @@ const Header = (props) => {
             </div>
 
             {/* search input */}
-            <div className={ 'col-span-2 flex justify-center place-items-center' }>
+            <div className={ 'flex justify-center place-items-center' }>
                 <div className={ 'flex place-items-center rounded-md' } >
                     <img src={ require('../../../resources/icons/search.png') } width={ 20 } alt={ 'Search' } className={ 'mx-2.5 absolute invert' } />
                     <input type={ 'text' } id={ 'searchInput' } name={ 'searchTopic' } data-testid={ 'searchInput' } className={ 'bg-[#1D3E53] ring-2 ring-black text-white w-72 h-7 rounded-md outline-none px-10 hover:bg-neutral-900 hover:ring-white focus:bg-neutral-900 focus:ring-white' } onChange={ props.onChange } onKeyDown={ props.onSearchKeydown } />
@@ -23,8 +23,8 @@ const Header = (props) => {
             </div>
 
             {/* settings */}
-            <div className={ 'col-1 flex justify-end place-items-center' }>
-                <ul className={ 'inline-flex' }>
+            <div className={ 'flex justify-end place-items-center' }>
+                <ul className={ 'inline-flex mr-1.5' }>
                     <li className={ 'mx-4 py-1.5 px-4 rounded bg-[#316B83] cursor-default' } >
                         <p>Welcome <strong>{ props.username }</strong>!</p>
                     </li>
