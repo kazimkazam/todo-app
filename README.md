@@ -49,11 +49,108 @@ Server:
 
 ## Screenshots
 
+### Sign-up
+
+#### Sign-up
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/signup.png?raw=true)
+
+#### Sign-up when user tries to submit invalid inputs
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/signupWrong.png?raw=true)
+
+### Login
+
+#### Login
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/login.png?raw=true)
+
+#### Login when user tries to submit invalid inputs
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/loginWrong.png?raw=true)
+
+### Notifications
+
+#### Notifications window and notifications icon with warning
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/notificationsWithWarning.png?raw=true)
+
+#### Notifications icon without warning
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/notificationsWithoutWarning.png?raw=true)
+
+### Add todos
+
+#### Add todos window
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/addTodoPopupWindow.png?raw=true)
+
+#### Add todos empty fields on submission attempt warning
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/addTodoPopupWithEmptyFieldsWarning.png?raw=true)
+
+#### Add todos invalid inputs on submission attempt warning
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/addTodoPopupWithInvalidInputsWarning.png?raw=true)
+
+### Inbox
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/inbox.png?raw=true)
+
+### Today
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/today.png?raw=true)
+
+### Upcoming
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/upcoming.png?raw=true)
+
+### All Todos
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/allTodos.png?raw=true)
+
+### Todos list view mode (the other mode being board)
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/todosListView.png?raw=true)
+
+### Edit todos
+
+#### Edit todos window
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/editTodoWindow.png?raw=true)
+
+#### Edit todos empty fields warning
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/editTodoWindowWithEmptyFieldsWarning.png?raw=true)
+
+#### Edit todos invalid inputs on submission warning
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/editTodoWindowWithInvalidInputsWarning.png?raw=true)
+
+### Search todos
+
+#### Search field
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/searchingTodosField.png?raw=true)
+
+#### Search with results found
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/searchingTodosResultsFound.png?raw=true)
+
+#### Search with results not found
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/searchingTodosResultsNotFound.png?raw=true)
+
+### Acknowledgements
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/acknowledgements.png?raw=true)
 
 ## Tests
+
 Tests were performed on server and client sides separately.
 
 ### Server side
+
 Tests were coducted using Mocha, Chai and Supertest.
 
 More specifically,
@@ -64,6 +161,7 @@ More specifically,
 ![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/serverTests.png?raw=true)
 
 ### Client side
+
 Tests were run using React Testing Library as the main testing framework, and Mock Service Worker to intercept requests made by the client and provide it with mocked responses similar to the ones received from the server.
 
 This way, it was possible to test the client as a whole as recommended by React / Redux while also keeping client / server concerns separate.
