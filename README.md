@@ -20,7 +20,8 @@ To handle the design of the application, Tailwind CSS was used.
 
 The application is running on:
 
-Client:
+### Client:
+
 - react 18.2.0;
 - react-dom 18.2.0;
 - react-redux 8.0.4;
@@ -29,7 +30,8 @@ Client:
 - reduxjs/toolkit 1.8.6;
 - Tailwind CSS.
 
-Server:
+### Server:
+
 - express 4.18.2;
 - express-session 1.17.3;
 - express-validator: 6.14.2;
@@ -45,7 +47,62 @@ Server:
 
 ## How to Use
 
+This SPA provides the user a todo manager.
 
+The application consists of the following main components:
+
+### Sign up
+
+The user can create a new account that is saved in a database to be used to login later;
+
+### Login
+
+The user can login with an existing account created using the sign up page;
+
+### Sidebar
+
+The user can select which page he wants to access: Inbox, Today, Upcoming and All Todos. 
+Another feature (not yet implemented) is to allow the user to create personal Projects and access them through this sidebar. These Projects would also appear in a list from where the user could choose the appropriate project when creating or editing a todo;
+
+### Header
+
+Contains the application logo, the search field, and add new todo, notifications, and logout buttons; 
+
+### Notifications
+
+The notifications icon informs the user if there are new todos and if there are any todos that he should pay attention that day. If so, by clicking on the notifications icon, the user will access the notifications window where such information will be available;
+
+### Search field and search results
+
+The search field allows to look up for any topic that the user may want to search. The results will show any todo with its description, associated comments or projects containing the topic that the user was trying to find. If no results are found, the page will inform the user of that;
+
+### Inbox todos
+
+The Inbox page showw new todos, i.e., todos that the user had not seen before;
+
+### Today todos and Upcoming todos
+
+The Today and Ppcoming pages show todos that have a due date of today or upcoming dates, respectively;
+
+### All todos
+
+The All Todos page shows every todo saved in the database related with the user;
+
+### Add new todos
+
+By clicking on the add todos icon in the header, a add todo window will pop up with the input fields that will allow the user to then submit a new todo;
+
+### Edit todos
+
+Each todo presents a edit icon which when clicked, a edit todo window will pop up with the input fields that will allow the user to then edit the todo. When the window opens, the input fields have the current variables state as placeholder text;
+
+### Delete todos
+
+Each todo presents a delete icon which when clicked, will delete the todo from the database;
+
+### Acknowledgements and Terms of Use
+
+Here is presented the acknowledgements, and the terms of use of the page.
 
 ## Screenshots
 
