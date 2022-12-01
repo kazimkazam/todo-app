@@ -50,10 +50,25 @@ Server:
 ## Screenshots
 
 
-
 ## Tests
+Tests were performed on server and client sides separately.
 
+### Server side
+Tests were coducted using Mocha, Chai and Supertest.
 
+More specifically,
+- Mocha as the main testing framework;
+- Chai was chosen to get some of its chain-capable TDD expect/should assert;
+- Supertest was used to create REST requests made to the server in order to test out their responses.
+
+![image]()https://github.com/kazimkazam/password-generator/blob/e6fd38453687bd4647b6ec251ea96e1a6d8bac2e/screenshots/tests.png
+
+### Client side
+Tests were run using Reacc Testing Library as the main testing framework, and Mock Service Worker to intercept requests made by the client and provide it with mocked responses similar to the ones received from the server.
+
+This way, it was possible to test the client as a whole as recommended by React / Redux.
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/clientTests.png?raw=true)
 
 ## Author
 
