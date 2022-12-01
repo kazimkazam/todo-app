@@ -64,9 +64,9 @@ More specifically,
 ![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/serverTests.png?raw=true)
 
 ### Client side
-Tests were run using Reacc Testing Library as the main testing framework, and Mock Service Worker to intercept requests made by the client and provide it with mocked responses similar to the ones received from the server.
+Tests were run using React Testing Library as the main testing framework, and Mock Service Worker to intercept requests made by the client and provide it with mocked responses similar to the ones received from the server.
 
-This way, it was possible to test the client as a whole as recommended by React / Redux.
+This way, it was possible to test the client as a whole as recommended by React / Redux while also keeping client / server concerns separate.
 
 ![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/clientTests.png?raw=true)
 

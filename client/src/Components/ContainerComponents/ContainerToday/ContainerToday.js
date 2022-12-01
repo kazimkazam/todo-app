@@ -103,7 +103,7 @@ const ContainerToday = () => {
         document.getElementById('editTodosWindow').className = 'absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50';
     };
 
-    // close popup windows if open when user clicks on the all todos window
+    // close popup windows if open when user clicks on the today todos window
     const closeOpenWindows = () => {
         document.getElementById('popupWindow').className = 'absolute top-20 right-36 bg-[#0B5269] w-96 rounded -z-50';
         document.getElementById('notificationsWindow').className = 'absolute top-20 right-20 bg-[#0B5269] w-96 rounded -z-50';

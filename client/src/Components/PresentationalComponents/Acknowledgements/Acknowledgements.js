@@ -62,6 +62,7 @@ approval or endorsement of the linked web site by us. Use of any such linked web
             <h2 className={ 'font-bold text-lg' } >Author</h2>
             <p>@kazimkazam</p>
             <p>Repository can be found by clicking on the link below.</p>
+            <a href={ 'https://github.com/kazimkazam/todo-app' } className={ 'text-yellow-400 hover:underline hover:underline-offset-4' } >Github</a>
         </div>
     );
 };
