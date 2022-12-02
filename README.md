@@ -102,7 +102,7 @@ Each todo presents a delete icon which when clicked, will delete the todo from t
 
 ### Acknowledgements and Terms of Use
 
-Here is presented the acknowledgements, and the terms of use of the page.
+In this section it is presented the acknowledgements, and the terms of use of the page.
 
 ## Screenshots
 
