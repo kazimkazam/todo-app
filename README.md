@@ -17,7 +17,7 @@ PERN (PostgreSQL, Express, React, and NodeJS) application using redux as state c
 
 This SPA was coded using React together with Redux. Express.js framework was used to handle the REST requests, and a PostgreSQL database makes the state between sessions persistent and stores authentication/authorization related data.
 
-To handle the design of the application, Tailwind CSS was used. At the moment, the application presents a responsive design considering the following screen sizes (minimum-width) breakpoints:
+To handle the design of the application, Tailwind CSS was used. At the moment, the application presents a responsive design considering the following screen size (minimum-width) breakpoints:
 - 1536px; 
 - 1280px;
 - 1024px.
