@@ -26,20 +26,16 @@ const ContainerLogin = () => {
 
     // check if user/password input warning should or should not appear
     useEffect(() => {
-        if (isLoggedIn && fetchStatus === 'succeded') {
+        if (fetchStatus === 'succeded') {
             document.getElementById('loginWarning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
             navigate('/inbox');
         } else if (fetchStatus === 'idle') {
             document.getElementById('loginWarning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
-        } else {
-            setTimeout(() => {
+        } else if (fetchStatus === 'failed') {
                 const element = document.getElementById('loginWarning');
-                if (element) {
-                    element.className = 'text-center bg-amber-700 w-1/4 text-lg rounded-t';
-                };
-            }, 500);
+                element.className = 'text-center bg-amber-700 w-1/4 text-lg rounded-t';
         };
-    }, [ isLoggedIn, fetchStatus, navigate, dispatch ]);
+    }, [ fetchStatus, navigate, dispatch ]);
 
     // handle changes in the inputs by updating the store state
     const eventHandler = (event) => {

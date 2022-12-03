@@ -27,18 +27,16 @@ const ContainerSignUp = () => {
 
     // check if user/password input warning should or should not appear
     useEffect(() => {
-        if ((isSignedUp && fetchStatus === 'succeded')) {
+        if ((fetchStatus === 'succeded')) {
             document.getElementById('signupWarning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
             navigate('/');
             dispatch(handleReset());
         } else if (fetchStatus === 'idle') {
             document.getElementById('signupWarning').className = 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t';
-        } else {
-            setTimeout(() => {
-                document.getElementById('signupWarning').className = 'text-center bg-amber-700 w-1/4 text-lg rounded-t';
-            }, 500);
+        } else if (fetchStatus === 'failed') {
+            document.getElementById('signupWarning').className = 'text-center bg-amber-700 w-1/4 text-lg rounded-t';
         };
-    }, [ isSignedUp, fetchStatus, navigate, dispatch ]);
+    }, [ fetchStatus, navigate, dispatch ]);
 
     // handle changes in the inputs by updating the store state
     const eventHandler = (event) => {

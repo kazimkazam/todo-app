@@ -15,7 +15,8 @@ const csurf = require('csurf');
 
 const port = process.env | 8080;
 
-const db = require('./db');
+// const db = require('./db');
+const db = require('./bitDb');
 
 app.use(helmet());
 app.use(cors({

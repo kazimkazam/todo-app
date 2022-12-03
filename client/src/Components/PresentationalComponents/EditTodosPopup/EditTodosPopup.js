@@ -40,7 +40,7 @@ const EditTodosPopup = (props) => {
                     <option value={ 'highPriority' } >High priority</option>
                 </select>
 
-                <button className={ 'bg-[#316B83] w-24 h-10 mt-5 rounded' } onClick={ props.onClick } data-testid={ 'submitEditTodo' } >Add</button>
+                <button className={ 'bg-[#316B83] w-24 h-10 mt-5 rounded' } onClick={ props.onClick } data-testid={ 'submitEditTodo' } >Edit</button>
             </div>
         </div>
     );
