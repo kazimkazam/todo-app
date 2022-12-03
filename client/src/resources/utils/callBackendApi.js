@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const signUpApi = createAsyncThunk('signUpState/signUpUser', async (creds) => {
-    const response = await fetch('http://localhost:8080/signup', {
+    // https://server-todo-app.glitch.me/
+    // const response = await fetch('http://localhost:8080/signup', {
+    const response = await fetch('https://server-todo-app.glitch.me/signup', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -14,7 +16,8 @@ const signUpApi = createAsyncThunk('signUpState/signUpUser', async (creds) => {
 });
 
 const loginApi = createAsyncThunk('loginState/fetchUser', async (creds) => {
-    const response = await fetch('http://localhost:8080/login', {
+    // const response = await fetch('http://localhost:8080/login', {
+    const response = await fetch('https://server-todo-app.glitch.me/login', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -27,7 +30,8 @@ const loginApi = createAsyncThunk('loginState/fetchUser', async (creds) => {
 });
 
 const logoutApi = createAsyncThunk('logoutState/endSession', async (creds) => {
-    const response = await fetch('http://localhost:8080/logout', {
+    // const response = await fetch('http://localhost:8080/logout', {
+    const response = await fetch('https://server-todo-app.glitch.me/logout', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -40,7 +44,8 @@ const logoutApi = createAsyncThunk('logoutState/endSession', async (creds) => {
 });
 
 const getTodosApi = createAsyncThunk('todosState/getTodos', async (creds) => {
-    const response = await fetch('http://localhost:8080/gettodos', {
+    // const response = await fetch('http://localhost:8080/gettodos', {
+    const response = await fetch('https://server-todo-app.glitch.me/gettodos', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -53,7 +58,8 @@ const getTodosApi = createAsyncThunk('todosState/getTodos', async (creds) => {
 });
 
 const addTodoApi = createAsyncThunk('todoState/addTodo', async (creds) => {
-    const response = await fetch('http://localhost:8080/addtodo', {
+    // const response = await fetch('http://localhost:8080/addtodo', {
+    const response = await fetch('https://server-todo-app.glitch.me/addtodo', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -66,7 +72,8 @@ const addTodoApi = createAsyncThunk('todoState/addTodo', async (creds) => {
 });
 
 const deleteTodoApi = createAsyncThunk('todoState/deleteTodo', async (creds) => {
-    const response = await fetch(`http://localhost:8080/deletetodo/${creds.todoId}`, {
+    // const response = await fetch(`http://localhost:8080/deletetodo/${creds.todoId}`, {
+    const response = await fetch(`https://server-todo-app.glitch.me/deletetodo/${creds.todoId}`, {
         method: 'delete',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -79,7 +86,8 @@ const deleteTodoApi = createAsyncThunk('todoState/deleteTodo', async (creds) => 
 });
 
 const updateTodoApi = createAsyncThunk('todoState/updateTodo', async (creds) => {
-    const response = await fetch(`http://localhost:8080/updatetodo/${creds.editTodo.id}`, {
+    // const response = await fetch(`http://localhost:8080/updatetodo/${creds.editTodo.id}`, {
+    const response = await fetch(`https://server-todo-app.glitch.me/updatetodo/${creds.editTodo.id}`, {
         method: 'put',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
