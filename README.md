@@ -5,9 +5,10 @@ PERN (PostgreSQL, Express, React, and NodeJS) application using redux as state c
 ## Table of Contents
 
 - Development;
-- How to use;
+- How to Use;
 - Screenshots;
 - Tests;
+- Future Work;
 - Author;
 - References;
 - License.
@@ -16,7 +17,10 @@ PERN (PostgreSQL, Express, React, and NodeJS) application using redux as state c
 
 This SPA was coded using React together with Redux. Express.js framework was used to handle the REST requests, and a PostgreSQL database makes the state between sessions persistent and stores authentication/authorization related data.
 
-To handle the design of the application, Tailwind CSS was used.
+To handle the design of the application, Tailwind CSS was used. At the moment, the application presents a responsive design considering the following screen sizes (minimum-width) breakpoints:
+- 1536px; 
+- 1280px;
+- 1024px.
 
 The application is running on:
 
@@ -224,6 +228,10 @@ Tests were run using React Testing Library as the main testing framework, and Mo
 This way, it was possible to test the client as a whole as recommended by React / Redux while also keeping client / server concerns separate.
 
 ![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/clientTests.png?raw=true)
+
+## Future Work
+
+The application has now a responsive design considering the 1536px, 1280px, and 1024px minimum-width breakpoints. In that perspective, future work will address this issue and make it responsive to smaller screen sizes comprising, e.g., phones.
 
 ## Author
 
