@@ -20,7 +20,8 @@ const db = require('./bitDb');
 
 app.use(helmet());
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://kazimkazam-todo-app.surge.sh',
+    // origin: 'http://localhost:3000',
     credentials: true
 }));
 
@@ -48,7 +49,12 @@ app.use(session({
 app.use(cookieParser());
 
 const csurfProtection = csurf({
-    cookie: true
+    // cookie: true,
+    cookie: {
+        sameSite: 'none',
+        secure: false,
+        httpOnly: true
+    },
 });
 
 app.use(csurfProtection);

@@ -2,9 +2,14 @@
 
 PERN (PostgreSQL, Express, React, and NodeJS) application using redux as state container, and Tailwind CSS.
 
+The application is deployed and can be accessed through the link below:
+
+## http://kazimkazam-todo-app.surge.sh
+
 ## Table of Contents
 
 - Development;
+- Deployment;
 - How to Use;
 - Screenshots;
 - Tests;
@@ -48,6 +53,15 @@ The application is running on:
 - pg-promise 10.12.1;
 - connect-pg-simple 7.0.0.
 
+## Deployment
+
+The application is deployed using the three following platforms:
+
+- PostgresSQL database is being maintained at bit.io
+
+- express server is running on glitch.com
+
+- and the client is running using surge.sh
 
 ## How to Use
 
