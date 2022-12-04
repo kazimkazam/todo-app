@@ -18,7 +18,7 @@ Please, make sure to wait a while (10s-20s should be enough) before starting to 
 - [Future Work](#future-work);
 - [Author](#author);
 - [References](#references);
-- [License](#references).
+- [License](#licence).
 
 ## Development
 
