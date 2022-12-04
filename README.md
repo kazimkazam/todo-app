@@ -6,6 +6,8 @@ The application is deployed and can be accessed through the link below:
 
 ## http://kazimkazam-todo-app.surge.sh
 
+Please, make sure to wait a while (10s-20s should be enough) before starting to use the website, otherwise any requests will fail. This is related with the server needing some time to wake up and fulfill any received requests.
+
 ## Table of Contents
 
 - Development;
@@ -62,6 +64,8 @@ The application is deployed using the three following platforms:
 - express server is running on glitch.com
 
 - and the client is running using surge.sh
+
+When opening the website, there is the need to wait a while before starting to use it (10s-20s should be enough), as the server needs some time to wake up and start fulfilling the requests made by the client.
 
 ## How to Use
 
