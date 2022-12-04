@@ -10,15 +10,15 @@ Please, make sure to wait a while (10s-20s should be enough) before starting to 
 
 ## Table of Contents
 
-- Development;
-- Deployment;
-- How to Use;
-- Screenshots;
-- Tests;
-- Future Work;
-- Author;
-- References;
-- License.
+- [Development](#development);
+- [Deployment](#deployment);
+- [How to Use](#how-to-use);
+- [Screenshots](#screenshots);
+- [Tests](#tests);
+- [Future Work](#future-work);
+- [Author](#author);
+- [References](#references);
+- [License](#references).
 
 ## Development
 
