@@ -39,9 +39,9 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 30000000,
-        secure: false,
+        secure: true,
         httpOnly: true,
-        sameSite: true,
+        sameSite: 'none',
     }
 }));
 
@@ -53,7 +53,7 @@ const csurfProtection = csurf({
     // cookie: true,
     cookie: {
         sameSite: 'none',
-        secure: false,
+        secure: true,
         httpOnly: true
     },
 });
