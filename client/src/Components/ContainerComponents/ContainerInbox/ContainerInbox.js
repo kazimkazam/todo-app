@@ -1,6 +1,6 @@
 import { Inbox } from '../../PresentationalComponents/Inbox/Inbox';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUserId } from '../../../redux/features/loginSlice';
+import { selectUserId, selectSid } from '../../../redux/features/loginSlice';
 import { selectTodos, selectViewType } from '../../../redux/features/todosSlice';
 import { handleChange } from "../../../redux/features/todosSlice";
 import { getTodosApi, updateTodoApi, deleteTodoApi } from '../../../resources/utils/callBackendApi';
@@ -21,6 +21,8 @@ const ContainerInbox = () => {
     const deleteFetchStatus = useSelector(selectFetchStatus);
     const possibleNewTodo = useSelector(selectAddTodosFetchStatus); // fetch may be successful or unsuccessful
     var csrfToken = useSelector(selectCsrfToken);
+
+    const sid = useSelector(selectSid);
 
     const inboxTodos = allTodos.filter(todo => todo.seen === false);
 
@@ -45,7 +47,8 @@ const ContainerInbox = () => {
         dispatch(getCsrfToken());
         const credentials = {
             getTodos: {
-                user_id: userId
+                user_id: userId,
+                sid: sid
             },
             csrfToken: csrfToken
         };
@@ -67,7 +70,8 @@ const ContainerInbox = () => {
                     due_date: todo.due_date,
                     priority: todo.priority,
                     user_id: userId,
-                    seen: true
+                    seen: true,
+                    sid: sid
                 },
                 csrfToken: csrfToken
             };
@@ -89,6 +93,7 @@ const ContainerInbox = () => {
         dispatch(getCsrfToken());
         let credentials = {
             todoId: event.target.name,
+            sid: sid,
             csrfToken: csrfToken
         };
         dispatch(deleteTodoApi(credentials));
@@ -97,7 +102,8 @@ const ContainerInbox = () => {
         dispatch(getCsrfToken());
         credentials = {
             getTodos: {
-                user_id: userId
+                user_id: userId,
+                sid: sid,
             },
             csrfToken: csrfToken
         };

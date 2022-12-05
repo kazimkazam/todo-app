@@ -9,6 +9,7 @@ export const loginSlice = createSlice({
         password: '',
         username: '',
         userId: null,
+        sid: '',
         isLoggedIn: false,
         fetchStatus: 'idle',
         errorStatus: null,
@@ -46,6 +47,7 @@ export const loginSlice = createSlice({
                 state.password = '';
                 state.username = action.payload.username;
                 state.userId = action.payload.userId;
+                state.sid = action.payload.sid;
             };
         })
     },
@@ -59,5 +61,6 @@ export const selectUsername = (state) => state.loginState.username;
 export const selectUserId = (state) => state.loginState.userId;
 export const selectIsLoggedIn = (state) => state.loginState.isLoggedIn;
 export const selectFetchStatus = (state) => state.loginState.fetchStatus;
+export const selectSid = (state) => state.loginState.sid;
 
 export default loginSlice.reducer;

@@ -16,7 +16,9 @@ const pool = new Pool({
 });
 
 const ensureAuthentication = (req, res, next) => {
-    pool.query('SELECT * FROM session', (error, results) => {
+    const { sid } = req.body;
+
+    pool.query('SELECT * FROM session WHERE sid=$1', [ sid ], (error, results) => {
         if (error) {
             throw error;
         };

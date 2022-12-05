@@ -2,7 +2,7 @@ import { AddTodoPopup } from "../../PresentationalComponents/addTodoPopup/AddTod
 import { useSelector, useDispatch } from "react-redux";
 import { selectNewTodo } from "../../../redux/features/addTodosSlice";
 import { handleChange, handleDate, handleReset } from "../../../redux/features/addTodosSlice";
-import { selectUserId } from "../../../redux/features/loginSlice";
+import { selectUserId, selectSid } from "../../../redux/features/loginSlice";
 import { getTodosApi, addTodoApi } from "../../../resources/utils/callBackendApi";
 import { useEffect } from "react";
 import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
@@ -12,6 +12,8 @@ const ContainerAddTodoPopup = () => {
     const newTodo = useSelector(selectNewTodo);
     const userId = useSelector(selectUserId);
     var csrfToken = useSelector(selectCsrfToken);
+
+    const sid = useSelector(selectSid);
 
     const dispatch = useDispatch();
 
@@ -60,7 +62,8 @@ const ContainerAddTodoPopup = () => {
                         due_date: newTodo.dueDate,
                         priority: newTodo.priority,
                         user_id: userId,
-                        seen: false
+                        seen: false,
+                        sid: sid
                     },
                     csrfToken: csrfToken
                 };
@@ -70,7 +73,8 @@ const ContainerAddTodoPopup = () => {
                 dispatch(getCsrfToken());
                 credentials = {
                     getTodos: {
-                        user_id: userId
+                        user_id: userId,
+                        sid: sid
                     },
                     csrfToken: csrfToken
                 };

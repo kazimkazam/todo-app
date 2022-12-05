@@ -80,7 +80,7 @@ const deleteTodoApi = createAsyncThunk('todoState/deleteTodo', async (creds) => 
             "xsrf-token": creds.csrfToken,
         },
         credentials: 'include',
-        body: null
+        body: JSON.stringify(creds.sid)
     });
     return response.json();
 });
@@ -101,7 +101,8 @@ const updateTodoApi = createAsyncThunk('todoState/updateTodo', async (creds) => 
             due_date: creds.editTodo.due_date,
             priority: creds.editTodo.priority,
             user_id: creds.editTodo.user_id,
-            seen: creds.editTodo.seen
+            seen: creds.editTodo.seen,
+            sid: creds.editTodo.sid
         })
     });
     return response.json();

@@ -1,6 +1,6 @@
 import { Today } from '../../PresentationalComponents/Today/Today';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUserId } from '../../../redux/features/loginSlice';
+import { selectUserId, selectSid } from '../../../redux/features/loginSlice';
 import { selectTodos, selectViewType } from '../../../redux/features/todosSlice';
 import { handleChange } from '../../../redux/features/todosSlice';
 import { useNavigate } from 'react-router-dom';
@@ -12,13 +12,17 @@ import { getYearFromIso8601, getMonthFromIso8601, getDateDayFromIso8601, getHour
 import { handlePriority } from "../../../resources/utils/handlePriority";
 import { getCsrfToken } from '../../../resources/utils/getCsrfToken';
 import { selectCsrfToken } from '../../../redux/features/csrfTokenSlice';
+import { selectFetchStatus as selectAddTodosFetchStatus } from '../../../redux/features/addTodosSlice';
 
 const ContainerToday = () => {
     const userId = useSelector(selectUserId);
     const allTodos = useSelector(selectTodos);
     const viewType = useSelector(selectViewType);
     const deleteFetchStatus = useSelector(selectFetchStatus);
+    const possibleNewTodo = useSelector(selectAddTodosFetchStatus); // fetch may be successful or unsuccessful
     var csrfToken = useSelector(selectCsrfToken);
+
+    const sid = useSelector(selectSid);
 
     const date = new Date();
     const dateToday = date.getDate();
@@ -47,12 +51,13 @@ const ContainerToday = () => {
         dispatch(getCsrfToken());
         let credentials = {
             getTodos: {
-                user_id: userId
+                user_id: userId,
+                sid: sid
             },
             csrfToken: csrfToken
         };
         dispatch(getTodosApi(credentials))
-    }, [ trigger, userId ]);
+    }, [ possibleNewTodo ]);
 
     // handler to change todos view type
     const viewTypeChangeHandler = (event) => {
@@ -66,6 +71,7 @@ const ContainerToday = () => {
         dispatch(getCsrfToken());
         let credentials = {
             todoId: event.target.name,
+            sid: sid,
             csrfToken: csrfToken
         };
         dispatch(deleteTodoApi(credentials));
@@ -74,7 +80,8 @@ const ContainerToday = () => {
         dispatch(getCsrfToken());
         credentials = {
             getTodos: {
-                user_id: userId
+                user_id: userId,
+                sid: sid
             },
             csrfToken: csrfToken
         };
