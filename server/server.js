@@ -20,7 +20,8 @@ const db = require('./bitDb');
 
 app.use(helmet());
 app.use(cors({
-    origin: 'http://kazimkazam-todo-app.surge.sh',
+    // origin: 'http://kazimkazam-todo-app.surge.sh',
+    origin: 'https://kazimkazam-todo-app.netlify.app',
     // origin: 'http://localhost:3000',
     credentials: true
 }));

@@ -6,7 +6,7 @@ The application is deployed and can be accessed through the link below:
 
 ## https://kazimkazam-todo-app.netlify.app
 
-Please, make sure to wait a while (10s-20s should be enough) before starting to use the website, otherwise any requests will fail. This is related with the server needing some time to wake up and fulfill any received requests.
+Please, make sure to wait a while (10s should be more than enough) before starting to use the website, otherwise any requests will fail. This is related with the server needing some time to wake up and start to fulfill any received requests.
 
 ## Table of Contents
 
@@ -63,9 +63,9 @@ The application is deployed using the three following platforms:
 
 - express server is running on glitch.com
 
-- and the client is running using surge.sh
+- and the client is running using netlify.com
 
-When opening the website, there is the need to wait a while before starting to use it (10s-20s should be enough), as the server needs some time to wake up and start fulfilling the requests made by the client.
+When opening the website, there is the need to wait a while before starting to use it (10s should be more than enough), as the server needs some time to wake up and start fulfilling the requests made by the client.
 
 ## How to Use
 
