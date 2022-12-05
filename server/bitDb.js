@@ -155,13 +155,21 @@ const login = (req, res, next) => {
 };
 
 const logout = (req, res, next) => {
+    const { sid } = req.body;
+
     if (req.session) {
         req.session.loggedIn = false;
         req.session.destroy(err => {
             if (err) {
-                res.status(400).send('Unable to logout!');
+                res.status(400).json('Unable to logout!');
             } else {
-                res.status(200).end('Logout successful.');
+                pool.query('DELETE FROM session WHERE sid=$1', [ sid ], (error, results) => {
+                    if (error)  {
+                        throw error;
+                    };
+                    res.status(200).json('Logout successful.');
+                    next();
+                });
             };
         });
     } else {

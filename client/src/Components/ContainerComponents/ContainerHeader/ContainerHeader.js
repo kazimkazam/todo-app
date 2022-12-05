@@ -1,7 +1,7 @@
 import { Header } from "../../PresentationalComponents/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import { handleReset as loginReset } from "../../../redux/features/loginSlice";
-import { selectUsername } from "../../../redux/features/loginSlice";
+import { selectUsername, selectSid } from "../../../redux/features/loginSlice";
 import { logoutApi } from "../../../resources/utils/callBackendApi";
 import { resetLogoutState } from "../../../redux/features/logoutSlice";
 import { useNavigate } from 'react-router-dom';
@@ -15,10 +15,14 @@ import { handleReset as updateTodosReset } from "../../../redux/features/updateT
 import { handleReset as todosReset } from "../../../redux/features/todosSlice";
 import { getDateDayFromIso8601 } from "../../../resources/utils/getDateFromIso8601";
 import { useEffect } from "react";
+import { getCsrfToken } from '../../../resources/utils/getCsrfToken';
+import { selectCsrfToken } from '../../../redux/features/csrfTokenSlice';
 
 const ContainerHeader = () => {
     const username = useSelector(selectUsername);
     const allTodos = useSelector(selectTodos);
+    const sid = useSelector(selectSid);
+    var csrfToken = useSelector(selectCsrfToken);
 
     const dispatch = useDispatch();
 
@@ -32,7 +36,18 @@ const ContainerHeader = () => {
         dispatch(updateTodosReset())
         dispatch(todosReset())
 
-        dispatch(logoutApi());
+        // get a new csrf token
+        dispatch(getCsrfToken());
+
+        // credentials for logout
+        const credentials = {
+            csrfToken: csrfToken,
+            sid: {
+                sid: sid
+            }
+        };
+
+        dispatch(logoutApi(credentials));
         
         navigate('/');
 

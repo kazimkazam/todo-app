@@ -38,7 +38,7 @@ const logoutApi = createAsyncThunk('logoutState/endSession', async (creds) => {
             "xsrf-token": creds.csrfToken,
         },
         credentials: 'include',
-        body: null
+        body: JSON.stringify(creds.sid)
     });
     return response.json();
 });
