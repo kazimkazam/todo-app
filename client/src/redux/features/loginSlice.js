@@ -22,6 +22,7 @@ export const loginSlice = createSlice({
             state.email = '';
             state.password = '';
             state.username = '';
+            state.userId = null;
             state.isLoggedIn = false;
             state.fetchStatus = 'idle';
             state.errorStatus = null;

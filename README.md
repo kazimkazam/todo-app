@@ -4,7 +4,7 @@ PERN (PostgreSQL, Express, React, and NodeJS) application using redux as state c
 
 The application is deployed and can be accessed through the link below:
 
-## http://kazimkazam-todo-app.surge.sh
+## https://kazimkazam-todo-app.netlify.app
 
 Please, make sure to wait a while (10s-20s should be enough) before starting to use the website, otherwise any requests will fail. This is related with the server needing some time to wake up and fulfill any received requests.
 
