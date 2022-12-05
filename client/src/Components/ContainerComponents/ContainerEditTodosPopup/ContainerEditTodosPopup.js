@@ -3,9 +3,10 @@ import { handleChange, handleDate, handleReset } from '../../../redux/features/u
 import { useSelector, useDispatch } from "react-redux";
 import { selectNewTodo } from "../../../redux/features/updateTodoSlice";
 import { selectUserId } from "../../../redux/features/loginSlice";
-import { updateTodoApi } from "../../../resources/utils/callBackendApi";
+import { updateTodoApi, getTodosApi } from "../../../resources/utils/callBackendApi";
 import { useEffect } from "react";
 import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
+import { getCsrfToken } from '../../../resources/utils/getCsrfToken';
 
 const ContainerEditTodosPopup = () => {
     const userId = useSelector(selectUserId);
@@ -49,6 +50,8 @@ const ContainerEditTodosPopup = () => {
     const onSubmitEditHandler = () => {
         if (Number(document.getElementById('editDueMinutes').value) >= 0 && Number(document.getElementById('editDueMinutes').value) <= 59 && Number(document.getElementById('editDueHour').value) >= 0 && Number(document.getElementById('editDueHour').value) <= 23 && Number(document.getElementById('editDueDay').value) > 0 && Number(document.getElementById('editDueDay').value) <= 31 && Number(document.getElementById('editDueMonth').value) > 0 && Number(document.getElementById('editDueMonth').value) <= 12 && Number(document.getElementById('editDueYear').value) >= 2021 && Number(document.getElementById('editDueYear').value) < 2100) {
             if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
+                // get a new csrf token
+                dispatch(getCsrfToken());
                 let credentials = {
                     editTodo: {
                         id: newTodo.id,
@@ -64,6 +67,16 @@ const ContainerEditTodosPopup = () => {
                 };
         
                 dispatch(updateTodoApi(credentials));
+
+                // get a new csrf token
+                dispatch(getCsrfToken());
+                credentials = {
+                    getTodos: {
+                        user_id: userId
+                    },
+                    csrfToken: csrfToken
+                };
+                dispatch(getTodosApi(credentials));
         
                 // close window and reset window inputs and updateTodoSlice state
                 closePopuphandler();

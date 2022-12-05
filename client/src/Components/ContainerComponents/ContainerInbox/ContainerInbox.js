@@ -101,7 +101,7 @@ const ContainerInbox = () => {
             },
             csrfToken: csrfToken
         };
-        dispatch(getTodosApi(credentials))
+        dispatch(getTodosApi(credentials));
 
         if (deleteFetchStatus === 'succeded') {
             dispatch(handleReset());

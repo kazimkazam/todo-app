@@ -6,6 +6,7 @@ import { selectUserId } from "../../../redux/features/loginSlice";
 import { getTodosApi, addTodoApi } from "../../../resources/utils/callBackendApi";
 import { useEffect } from "react";
 import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
+import { getCsrfToken } from '../../../resources/utils/getCsrfToken';
 
 const ContainerAddTodoPopup = () => {
     const newTodo = useSelector(selectNewTodo);
@@ -49,6 +50,8 @@ const ContainerAddTodoPopup = () => {
     const onAddHandler = () => {
         if (Number(document.getElementById('dueMinutes').value) >= 0 && Number(document.getElementById('dueMinutes').value) <= 59 && Number(document.getElementById('dueHour').value) >= 0 && Number(document.getElementById('dueHour').value) <= 23 && Number(document.getElementById('dueDay').value) > 0 && Number(document.getElementById('dueDay').value) <= 31 && Number(document.getElementById('dueMonth').value) > 0 && Number(document.getElementById('dueMonth').value) <= 12 && Number(document.getElementById('dueYear').value) >= 2021 && Number(document.getElementById('dueYear').value) < 2100) {
             if (newTodo.description && newTodo.project && newTodo.comments && newTodo.dueDate) {
+                // get a new csrf token
+                dispatch(getCsrfToken());
                 let credentials = {
                     newTodo: {
                         description: newTodo.description,
@@ -62,7 +65,9 @@ const ContainerAddTodoPopup = () => {
                     csrfToken: csrfToken
                 };
                 dispatch(addTodoApi(credentials));
-    
+                
+                // get a new csrf token
+                dispatch(getCsrfToken());
                 credentials = {
                     getTodos: {
                         user_id: userId
