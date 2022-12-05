@@ -154,7 +154,6 @@ const login = (req, res, next) => {
 
 const logout = (req, res, next) => {
     if (req.session) {
-        console.log(req.session);
         req.session.loggedIn = false;
         req.session.destroy(err => {
             if (err) {
