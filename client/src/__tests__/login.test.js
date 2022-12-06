@@ -10,6 +10,7 @@ describe('tests related with Container Login', () => {
         password: '',
         username: '',
         userId: null,
+        sid: '',
         isLoggedIn: false,
         fetchStatus: 'idle',
         errorStatus: null,
@@ -139,7 +140,8 @@ describe('tests related with Container Login', () => {
         waitFor(() => expect(loginState.password).toEqual('Pass1234'));
 
         // submit and verify we navigated to inbox
-        waitFor(() => fireEvent.keyDown(screen.queryByTestId('loginSubmit'), { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 }));
+        waitFor(() => fireEvent.focus(screen.queryByTestId('loginEmail')));
+        waitFor(() => fireEvent.keyDown(screen.queryByTestId('loginEmail'), { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 }));
         waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
     });
 });

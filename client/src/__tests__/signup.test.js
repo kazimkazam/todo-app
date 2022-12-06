@@ -137,7 +137,8 @@ describe('tests related with Container SignUp', () => {
         waitFor(() => expect(screen.queryByTestId('signupPassword')).toHaveFocus());
 
         // fire submit and verify
-        waitFor(() => fireEvent.keyDown(screen.queryByTestId('signupSubmit'), { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 }));
+        waitFor(() => fireEvent.focus(screen.queryByTestId('signupEmail')));
+        waitFor(() => fireEvent.keyDown(screen.queryByTestId('signupEmail'), { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 }));
         waitFor(() => expect(screen.queryByTestId('loginEmail')).toBeInTheDocument());
     });
 });
