@@ -36,6 +36,8 @@ const ContainerUpcoming = () => {
         if ((todoDueDay < dateToday && todoDueMonth > dateMonth && todoDueYear >= dateYear) || (todoDueDay > dateToday && todoDueMonth >= dateMonth && todoDueYear >= dateYear)) {
             return todo;
         };
+
+        return null;
     });
 
     const navigate = useNavigate();
