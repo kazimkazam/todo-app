@@ -2,7 +2,7 @@ import { Login } from "../../PresentationalComponents/Login/Login";
 import { loginApi } from "../../../resources/utils/callBackendApi";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { selectEmail, selectPassword, selectIsLoggedIn, selectFetchStatus } from "../../../redux/features/loginSlice";
+import { selectEmail, selectPassword, selectFetchStatus } from "../../../redux/features/loginSlice";
 import { handleChange } from '../../../redux/features/loginSlice';
 import { useEffect } from "react";
 import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
@@ -11,7 +11,6 @@ import { getCsrfToken } from "../../../resources/utils/getCsrfToken";
 const ContainerLogin = () => {
     const email = useSelector(selectEmail);
     const password = useSelector(selectPassword);
-    const isLoggedIn = useSelector(selectIsLoggedIn);
     const fetchStatus = useSelector(selectFetchStatus);
     var csrfToken = useSelector(selectCsrfToken);
 
@@ -35,7 +34,7 @@ const ContainerLogin = () => {
                 const element = document.getElementById('loginWarning');
                 element.className = 'text-center bg-amber-700 w-1/4 text-lg rounded-t';
         };
-    }, [ fetchStatus, navigate, dispatch ]);
+    }, [ fetchStatus ]);
 
     // handle changes in the inputs by updating the store state
     const eventHandler = (event) => {

@@ -35,7 +35,6 @@ const ContainerSearchResults = () => {
             csrfToken: csrfToken
         };
         dispatch(deleteTodoApi(credentials));
-        // dispatch(deleteTodoApi(event.target.name));
 
         // get a new csrf token
         dispatch(getCsrfToken());
@@ -46,10 +45,6 @@ const ContainerSearchResults = () => {
             csrfToken: csrfToken
         };
         dispatch(getTodosApi(credentials))
-
-        // dispatch(getTodosApi({
-        //     user_id: userId
-        // }));
 
         if (deleteFetchStatus === 'succeded') {
             dispatch(handleReset());

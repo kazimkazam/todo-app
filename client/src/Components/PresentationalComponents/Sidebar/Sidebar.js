@@ -4,16 +4,16 @@ const Sidebar = (props) => {
     return(
         <div className={ 'xxl:w-72 xl:w-72 lg:w-60 mx-2' } onClick={ props.onClick }>
             <ul>
-                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToInbox' } >
-                    <NavLink to={ '/inbox' } >
+                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } >
+                    <NavLink to={ '/inbox' } data-testid={ 'navigateToInbox' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/inbox.png') } width={ 30 } alt={ 'inbox icon' } className={ 'mr-3' } />
                             <p>Inbox</p>
                         </div>
                     </NavLink>
                 </li>
-                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToToday' } >
-                    <NavLink to={ '/today' } >
+                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } >
+                    <NavLink to={ '/today' } data-testid={ 'navigateToToday' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/today.png') } width={ 30 } alt={ 'today icon' } className={ 'mr-3' } />
                             <p>Today</p>
@@ -21,16 +21,16 @@ const Sidebar = (props) => {
                     </NavLink>
                     
                 </li>
-                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToUpcoming' } >
-                    <NavLink to={ '/upcoming' } >
+                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } >
+                    <NavLink to={ '/upcoming' } data-testid={ 'navigateToUpcoming' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/upcoming.png') } width={ 30 } alt={ 'upcoming icon' } className={ 'mr-3' } />
                             <p>Upcoming</p>
                         </div>
                     </NavLink>
                 </li>
-                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } data-testid={ 'navigateToAllTodos' } >
-                    <NavLink to={ '/alltodos' } >
+                <li className={ 'hover:bg-neutral-700 block w-full p-1.5 rounded my-3' } onClick={ props.onTabSelectResetSearch } >
+                    <NavLink to={ '/alltodos' } data-testid={ 'navigateToAllTodos' } >
                         <div className={ 'flex' } >
                             <img src={ require('../../../resources/icons/folders.png') } width={ 30 } alt={ 'all todos icon' } className={ 'mr-3' } />
                             <p>All todos</p>

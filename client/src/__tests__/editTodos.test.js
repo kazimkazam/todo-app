@@ -1,8 +1,11 @@
 import { Provider } from 'react-redux';
 import { store } from '../redux/store/store'
-import { render, fireEvent, screen, waitFor, cleanup } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import App from '../App/App';
+import { server } from '../mocks/server';
+import { rest } from 'msw';
 
 describe('tests related with editing todos', () => {
     const initialState = {
@@ -33,165 +36,214 @@ describe('tests related with editing todos', () => {
             </Provider>
         );
 
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'troti@email.com' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } }));
-        waitFor(() => fireEvent.click(screen.queryByTestId('loginSubmit')));
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test@email.com' } });
+        fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } });
+        fireEvent.click(screen.queryByTestId('loginSubmit'));
     });
 
     afterEach(() => {
-        cleanup();
+        // return to login for next test (odd behavior - test not cleaning up react tree in time...)
+        fireEvent.click(screen.queryByTestId('logout'));
     });
 
     it('should load with initial state', async () => {
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
         let editTodosState = store.getState().updateTodo;
         expect(editTodosState).toEqual(initialState);
     });
 
     it('should edit todo on click submission and show it on upcoming todos', async () => {
+        // override server interception on this gettodos request
+        server.use(
+            rest.post('https://server-todo-app.glitch.me/gettodos', async (req, res, ctx) => {
+                const response = res.once(
+                    ctx.status(200),
+                    ctx.delay(),
+                    ctx.json([
+                        {
+                            "id": 12,
+                            "description": "Get a pen updated on upcoming window.",
+                            "project": "Home todo was updated on upcoming window",
+                            "comments": "Blue",
+                            "due_date": "2022-12-25T15:00:00.000Z",
+                            "priority": 3,
+                            "user_id": 21,
+                            "seen": true
+                        },
+                    ])
+                );
+                return response;
+            }),
+        );
+
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
         // navigate to upcoming window (to see the mock todo edited)
-        waitFor(() => fireEvent.click(screen.queryByTestId('navigateToUpcoming')));
+        userEvent.click(await screen.findByTestId('navigateToUpcoming'));
 
-        waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
         
         // click on edit todo
-        waitFor(() => fireEvent.click(screen.queryByTestId('editTodo')));
+        userEvent.click(screen.queryByTestId('editTodo'));
+        await waitFor(() => expect(screen.queryByTestId('editTodosWindow').className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50'));
 
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDescription'), { target: { value: 'asdasd' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoProject'), { target: { value: 'asdasd' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoComments'), { target: { value: 'asda' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueDay'), { target: { value: '11' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueMonth'), { target: { value: '12' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueYear'), { target: { value: '2022' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueHour'), { target: { value: '15' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueMinutes'), { target: { value: '34' } }));
+        fireEvent.change(screen.queryByTestId('editTodoDescription'), { target: { value: 'asdasd' } });
+        fireEvent.change(screen.queryByTestId('editTodoProject'), { target: { value: 'asdasd' } });
+        fireEvent.change(screen.queryByTestId('editTodoComments'), { target: { value: 'asda' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueDay'), { target: { value: '11' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueMonth'), { target: { value: '12' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueYear'), { target: { value: '2022' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueHour'), { target: { value: '15' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueMinutes'), { target: { value: '34' } });
 
-        // submit on click
-        waitFor(() => fireEvent.click(screen.queryByTestId('submitEditTodo')));
-
+        // submit on click and window should close
+        userEvent.click(screen.queryByTestId('submitEditTodo'));
+        
         // verify
-        waitFor(() => expect(screen.findByText('Home todo was updated on upcoming window')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByText('Get a pen updated on upcoming window.')).toBeInTheDocument());
     });
 
     it('should edit todo on enter keydown submission and show it on upcoming todos', async () => {
+        // override server interception on this gettodos request
+        server.use(
+            rest.post('https://server-todo-app.glitch.me/gettodos', async (req, res, ctx) => {
+                const response = res.once(
+                    ctx.status(200),
+                    ctx.delay(),
+                    ctx.json([
+                        {
+                            "id": 12,
+                            "description": "Get a pen updated on upcoming window.",
+                            "project": "Home todo was updated on upcoming window",
+                            "comments": "Blue",
+                            "due_date": "2022-12-25T15:00:00.000Z",
+                            "priority": 3,
+                            "user_id": 21,
+                            "seen": true
+                        },
+                    ])
+                );
+                return response;
+            }),
+        );
+
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
         // navigate to upcoming window (to see the mock todo edited)
-        waitFor(() => fireEvent.click(screen.queryByTestId('navigateToUpcoming')));
+        userEvent.click(await screen.findByTestId('navigateToUpcoming'));
 
-        waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
-
+        await waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+        
         // click on edit todo
-        waitFor(() => fireEvent.click(screen.queryByTestId('editTodo')));
+        userEvent.click(screen.queryByTestId('editTodo'));
+        await waitFor(() => expect(screen.queryByTestId('editTodosWindow').className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50'));
 
-        // edit inputs
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDescription'), { target: { value: 'asdasd' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoProject'), { target: { value: 'asdasd' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoComments'), { target: { value: 'asda' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueDay'), { target: { value: '11' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueMonth'), { target: { value: '12' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueYear'), { target: { value: '2022' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueHour'), { target: { value: '15' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueMinutes'), { target: { value: '34' } }));
+        fireEvent.change(screen.queryByTestId('editTodoDescription'), { target: { value: 'asdasd' } });
+        fireEvent.change(screen.queryByTestId('editTodoProject'), { target: { value: 'asdasd' } });
+        fireEvent.change(screen.queryByTestId('editTodoComments'), { target: { value: 'asda' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueDay'), { target: { value: '11' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueMonth'), { target: { value: '12' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueYear'), { target: { value: '2022' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueHour'), { target: { value: '15' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueMinutes'), { target: { value: '34' } });
 
-        // submit on enter keydown
-        let editTodosWindow = screen.queryByTestId('editTodosWindow');
-        waitFor(() => fireEvent.focus(editTodosWindow));
+        // submit on enter keydown and window should close
+        fireEvent.click(screen.queryByTestId('editTodoDueMinutes'));
 
-        waitFor(() => fireEvent.keyDown(editTodosWindow, { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 }));
+        userEvent.type(screen.queryByTestId('editTodoDueMinutes'), '{enter}');
 
-        waitFor(() => expect(screen.findByText('Home todo was updated on upcoming window')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByText('Get a pen updated on upcoming window.')).toBeInTheDocument());
     });
 
     it('should show warning when there are empty input fields', async () => {
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
-        // navigate to upcoming window (to see the mock todo edited)
-        waitFor(() => fireEvent.click(screen.queryByTestId('navigateToUpcoming')));
+        // navigate to upcoming window
+        userEvent.click(await screen.findByTestId('navigateToUpcoming'));
 
-        waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+
+        // click on edit todo
+        userEvent.click(screen.queryByTestId('editTodo'));
+        await waitFor(() => expect(screen.queryByTestId('editTodosWindow').className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50'));
 
         // submit on click
-        waitFor(() => fireEvent.click(screen.queryByTestId('submitEditTodo')));
+        fireEvent.click(screen.queryByTestId('submitEditTodo'));
 
         // verify
-        waitFor(() => expect(screen.queryByTestId('editTodoWarning')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('editTodoWarning')).toBeInTheDocument());
     });
 
     it('should show warning when user tries to submit with invalid inputs', async () => {
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
-        // navigate to upcoming window (to see the mock todo edited)
-        waitFor(() => fireEvent.click(screen.queryByTestId('navigateToUpcoming')));
+        // navigate to upcoming window
+        userEvent.click(await screen.findByTestId('navigateToUpcoming'));
 
-        waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+
+        // click on edit todo
+        userEvent.click(screen.queryByTestId('editTodo'));
+        await waitFor(() => expect(screen.queryByTestId('editTodosWindow').className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50'));
 
         // edit inputs
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDescription'), { target: { value: 'asdasd' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoProject'), { target: { value: 'asdasd' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoComments'), { target: { value: 'asda' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueDay'), { target: { value: '11' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueMonth'), { target: { value: '15' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueYear'), { target: { value: '2022' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueHour'), { target: { value: '15' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('editTodoDueMinutes'), { target: { value: '34' } }));
+        fireEvent.change(screen.queryByTestId('editTodoDescription'), { target: { value: 'asdasd' } });
+        fireEvent.change(screen.queryByTestId('editTodoProject'), { target: { value: 'asdasd' } });
+        fireEvent.change(screen.queryByTestId('editTodoComments'), { target: { value: 'asda' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueDay'), { target: { value: '11' } });
+        // invalid month input
+        fireEvent.change(screen.queryByTestId('editTodoDueMonth'), { target: { value: '15' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueYear'), { target: { value: '2022' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueHour'), { target: { value: '15' } });
+        fireEvent.change(screen.queryByTestId('editTodoDueMinutes'), { target: { value: '34' } });
 
         // submit on click
-        waitFor(() => fireEvent.click(screen.queryByTestId('submitEditTodo')));
+        fireEvent.click(screen.queryByTestId('submitEditTodo'));
 
         // verify
-        waitFor(() => expect(screen.queryByTestId('editTodoInputInvalidWarning')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('editTodoInputInvalidWarning')).toBeInTheDocument());
     });
 
     it('should close the window when user clicks to close', async () => {
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
-        // navigate to upcoming window (to see the mock todo edited)
-        waitFor(() => fireEvent.click(screen.queryByTestId('navigateToUpcoming')));
+        // navigate to upcoming window
+        userEvent.click(await screen.findByTestId('navigateToUpcoming'));
 
-        waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
 
         // click on edit todo
-        waitFor(() => fireEvent.click(screen.queryByTestId('editTodo')));
-
-        waitFor(() => expect(editTodosWindow.className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50'));
-
-        let editTodosWindow = screen.queryByTestId('editTodosWindow');
-        waitFor(() => fireEvent.focus(editTodosWindow));
+        userEvent.click(screen.queryByTestId('editTodo'));
+        await waitFor(() => expect(screen.queryByTestId('editTodosWindow').className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50'));
 
         // close window
-        waitFor(() => fireEvent.click(screen.queryByTestId('editTodosWindowClose')));
-        waitFor(() => expect(editTodosWindow.className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded -z-50'));
+        userEvent.click(screen.queryByTestId('editTodosWindowClose'));
+        await waitFor(() => expect(screen.queryByTestId('editTodosWindow').className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded -z-50'));
     });
 
     it('should close the window when user uses escape key (with no input field focused)', async () => {
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
-        // navigate to upcoming window (to see the mock todo edited)
-        waitFor(() => fireEvent.click(screen.queryByTestId('navigateToUpcoming')));
+        // navigate to upcoming window
+        userEvent.click(await screen.findByTestId('navigateToUpcoming'));
 
-        waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
 
         // click on edit todo
-        waitFor(() => fireEvent.click(screen.queryByTestId('editTodo')));
-
-        waitFor(() => expect(editTodosWindow.className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded z-50'));
-
-        let editTodosWindow = screen.queryByTestId('editTodosWindow');
-        waitFor(() => fireEvent.focus(editTodosWindow));
+        userEvent.click(screen.queryByTestId('editTodo'));
 
         // close window
-        waitFor(() => fireEvent.keyDown(editTodosWindow, { key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27 }));
-        waitFor(() => expect(editTodosWindow.className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded -z-50'));
+        userEvent.click(screen.queryByTestId('editTodosWindow'));
+        fireEvent.keyDown(screen.queryByTestId('editTodosWindow'), { key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27 });
+        await waitFor(() => expect(screen.queryByTestId('editTodosWindow').className).toBe('absolute top-1/3 left-1/2 bg-[#0B5269] w-96 rounded -z-50'));
     });
 });

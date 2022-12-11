@@ -9,7 +9,7 @@ const SearchResults = (props) => {
             </div>
 
             <div className={ 'flex flex-wrap ml-10 h-min' }>
-                <p>No todos related with { props.topic } were found...</p>
+                <p data-testid={ 'noResultsFoundWarning' } >No todos related with { props.topic } were found...</p>
             </div>
         </div>
         );

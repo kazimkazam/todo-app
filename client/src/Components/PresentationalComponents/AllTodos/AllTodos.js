@@ -32,7 +32,7 @@ const AllTodos = (props) => {
                                         <span className={ 'w-52 h-6 bg-teal-400 mt-3 ml-3 rounded' } ></span>
                                         <div className={ 'flex justify-between' } >
                                             <img src={ require('../../../resources/icons/edit.png') } width={ 30 } className={ 'mt-3 mr-4 cursor-pointer hover:scale-125' } alt={ 'edit todo' } title={ 'Edit todo' } name={ todo.id } onClick={ props.onClickEdit } />
-                                            <img src={ require('../../../resources/icons/delete.png') } width={ 30 } className={ 'mt-3 mr-3 cursor-pointer hover:scale-125' } alt={ 'delete todo' } title={ 'Delete todo' } name={ todo.id } onClick={ props.onClickDelete } />
+                                            <img src={ require('../../../resources/icons/delete.png') } data-testid={ 'deleteTodo' } width={ 30 } className={ 'mt-3 mr-3 cursor-pointer hover:scale-125' } alt={ 'delete todo' } title={ 'Delete todo' } name={ todo.id } onClick={ props.onClickDelete } />
                                         </div>
                                     </div>
                                     
@@ -46,7 +46,7 @@ const AllTodos = (props) => {
                                         <span className={ 'w-52 h-6 bg-[#FDD998] mt-3 ml-3 rounded' } ></span>
                                         <div className={ 'flex justify-between' } >
                                             <img src={ require('../../../resources/icons/edit.png') } width={ 30 } className={ 'mt-3 mr-4 cursor-pointer hover:scale-125' } alt={ 'edit todo' } title={ 'Edit todo' } name={ todo.id } onClick={ props.onClickEdit } />
-                                            <img src={ require('../../../resources/icons/delete.png') } width={ 30 } className={ 'mt-3 mr-3 cursor-pointer hover:scale-125' } alt={ 'delete todo' } title={ 'Delete todo' } name={ todo.id } onClick={ props.onClickDelete } />
+                                            <img src={ require('../../../resources/icons/delete.png') } data-testid={ 'deleteTodo' } width={ 30 } className={ 'mt-3 mr-3 cursor-pointer hover:scale-125' } alt={ 'delete todo' } title={ 'Delete todo' } name={ todo.id } onClick={ props.onClickDelete } />
                                         </div>
                                     </div>
                                     
@@ -60,7 +60,7 @@ const AllTodos = (props) => {
                                         <span className={ 'w-52 h-6 bg-[#D35D6E] mt-3 ml-3 rounded' } ></span>
                                         <div className={ 'flex justify-between' } >
                                             <img src={ require('../../../resources/icons/edit.png') } width={ 30 } className={ 'mt-3 mr-4 cursor-pointer hover:scale-125' } alt={ 'edit todo' } title={ 'Edit todo' } name={ todo.id } onClick={ props.onClickEdit } />
-                                            <img src={ require('../../../resources/icons/delete.png') } width={ 30 } className={ 'mt-3 mr-3 cursor-pointer hover:scale-125' } alt={ 'delete todo' } title={ 'Delete todo' } name={ todo.id } onClick={ props.onClickDelete } />
+                                            <img src={ require('../../../resources/icons/delete.png') } data-testid={ 'deleteTodo' } width={ 30 } className={ 'mt-3 mr-3 cursor-pointer hover:scale-125' } alt={ 'delete todo' } title={ 'Delete todo' } name={ todo.id } onClick={ props.onClickDelete } />
                                         </div>
                                     </div>
                                     

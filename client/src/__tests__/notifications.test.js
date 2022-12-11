@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 import { store } from '../redux/store/store'
-import { render, fireEvent, screen, waitFor, cleanup } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from '../App/App';
 
@@ -13,37 +13,36 @@ describe('tests related with notifications window', () => {
             </Provider>
         );
 
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'troti@email.com' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } }));
-        waitFor(() => fireEvent.click(screen.queryByTestId('loginSubmit')));
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test@email.com' } });
+        fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } });
+        fireEvent.click(screen.queryByTestId('loginSubmit'));
     });
 
     afterEach(() => {
-        cleanup();
+        // return to login for next test (odd behavior - test not cleaning up react tree in time...)
+        fireEvent.click(screen.queryByTestId('logout'));
     });
 
     it('should open window and show notifications, before the opening, a warning saying there are notifications should be visible, and after window closes, the warning disappears', async () => {
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
         
         // verify notifications warning is appearing
         let notificationsWarning = screen.queryByTestId('notificationsWarning');
-        waitFor(() => expect(notificationsWarning.className).toBe('absolute top-1 right-[4.5rem]'));
+        await waitFor(() => expect(notificationsWarning.className).toBe('absolute top-1 right-[4.5rem]'));
         
         // open notifications window and verify it is open
-        waitFor(() => fireEvent.click(screen.queryByTestId('openNotifications')));
+        fireEvent.click(screen.queryByTestId('openNotifications'));
 
         let notificationsWindow = screen.queryByTestId('notificationsWindow');
-        waitFor(() => expect(notificationsWindow.className).toBe('absolute top-20 right-20 bg-[#0B5269] w-96 rounded z-50'));
+        await waitFor(() => expect(notificationsWindow.className).toBe('absolute top-20 right-20 bg-[#0B5269] w-96 rounded z-50'));
 
         // close window and verify it is closed
-        waitFor(() => fireEvent.click(screen.queryByTestId('notificationsWindowClose')));
+        fireEvent.click(screen.queryByTestId('notificationsWindowClose'));
 
-        notificationsWindow = screen.queryByTestId('notificationsWindow');
-        waitFor(() => expect(notificationsWindow.className).toBe('absolute top-20 right-20 bg-[#0B5269] w-96 rounded -z-50'));
+        await waitFor(() => expect(notificationsWindow.className).toBe('absolute top-20 right-20 bg-[#0B5269] w-96 rounded -z-50'));
 
         // verify notifications warning disappeared
-        notificationsWarning = screen.queryByTestId('notificationsWarning');
-        waitFor(() => expect(notificationsWarning.className).toBe('hidden absolute top-1 right-[4.5rem]'));
+        await waitFor(() => expect(notificationsWarning.className).toBe('hidden absolute top-1 right-[4.5rem]'));
     });
 });

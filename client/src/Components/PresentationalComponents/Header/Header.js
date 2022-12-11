@@ -26,7 +26,7 @@ const Header = (props) => {
             <div className={ 'flex justify-end place-items-center' }>
                 <ul className={ 'inline-flex mr-1.5' }>
                     <li className={ 'mx-4 py-1.5 px-4 rounded bg-[#316B83] cursor-default' } >
-                        <p>Welcome <strong>{ props.username }</strong>!</p>
+                        <p data-testid={ 'welcomeMessage' } >Welcome <strong>{ props.username }</strong>!</p>
                     </li>
                     <li className={ 'mx-4 hover:scale-125' } >
                         <button id={ 'newTask' } ><img src={ require('../../../resources/icons/newTask.png') } width={ 30 } title={ 'Add new task' } alt={ 'add new task' } data-testid={ 'addNewTodo' } onClick={ props.openPopup } /></button>
@@ -38,7 +38,7 @@ const Header = (props) => {
                         </div>
                     </li>
                     <li className={ 'mx-4 hover:scale-125' } >
-                        <button id={ 'logout' } onClick={ props.onClick } ><img src={ require('../../../resources/icons/logout.png') } width={ 30 } title={ 'Logout' } alt={ 'logout' } /></button>
+                        <button id={ 'logout' } onClick={ props.onClick } ><img src={ require('../../../resources/icons/logout.png') } width={ 30 } title={ 'Logout' } alt={ 'logout' } data-testid={ 'logout' } /></button>
                     </li>
                 </ul>
             </div>

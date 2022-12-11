@@ -1,8 +1,10 @@
 import { Provider } from 'react-redux';
 import { store } from '../redux/store/store'
-import { render, fireEvent, screen, waitFor, cleanup } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from '../App/App';
+import { server } from '../mocks/server';
+import { rest } from 'msw';
 
 describe('tests related with Container Login', () => {
     const initialState = {
@@ -17,131 +19,135 @@ describe('tests related with Container Login', () => {
     };
 
     // cleanUp
-    beforeEach(() => {
+    beforeEach(async () => {
         render(
             <Provider store={ store } >
                 <App />
             </Provider>
         );
-    });
 
-    afterEach(() => {
-        cleanup();
-    });
-
-    it('should start with initial state', async () => {
         // verify we are on login page
-        expect(screen.queryByTestId('loginEmail')).toBeInTheDocument();
+        await waitFor(() => expect(screen.queryByTestId('loginEmail')).toBeInTheDocument());
+    });
 
+    it('should start with initial state', () => {
         // verify initial state
         let loginState = store.getState().loginState;
         expect(loginState).toEqual(initialState);
     });
 
-    it('should handle input changes made by the user', async () => {
-        // verify we are on login page
-        expect(screen.queryByTestId('loginEmail')).toBeInTheDocument();
-
+    it('should handle input changes made by the user', () => {
         // insert email and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'troti@email.com' } }));
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test@email.com' } });
         
         let loginState = store.getState().loginState;
-        waitFor(() => expect(loginState.email).toEqual('troti@email.com'));
+        expect(loginState.email).toEqual('test@email.com');
 
         // insert password and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } }));
+        fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } });
 
         loginState = store.getState().loginState;
-        waitFor(() => expect(loginState.password).toEqual('Pass1234'));
+        expect(loginState.password).toEqual('Pass1234');
     });
 
     it('should fail to login when user submits a wrong email', async () => {
-        // verify we are on login page
-        expect(screen.queryByTestId('loginEmail')).toBeInTheDocument();
+        // override server in this request interception
+        server.use(
+            rest.post('https://server-todo-app.glitch.me/login', async (req, res, ctx) => {
+                const response = res.once(
+                    ctx.status(400, 'error')
+                );
+                return response;
+            }),
+        );
 
         // insert email and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'emaileil.com' } }));
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test4email.com' } });
         
         let loginState = store.getState().loginState;
-        waitFor(() => expect(loginState.email).toEqual('emaileil.com'));
+        expect(loginState.email).toEqual('test4email.com');
 
         // insert password and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } }));
+        fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } });
 
         loginState = store.getState().loginState;
-        waitFor(() => expect(loginState.password).toEqual('Pass1234'));
+        expect(loginState.password).toEqual('Pass1234');
 
         // submit and verify we are still on login page and warning of wrong email or password has appeared
-        waitFor(() => fireEvent.click(screen.queryByTestId('loginSubmit')));
+        fireEvent.click(screen.queryByTestId('loginSubmit'));
         
-        waitFor(() => expect(screen.queryByTestId('loginEmail')).toBeInTheDocument());
-        waitFor(() => expect(screen.queryByTestId('loginWarning')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('loginEmail')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('loginWarning')).toBeInTheDocument());
     });
 
     it('should fail to login when user submits a wrong password', async () => {
-        // verify we are on login page
-        expect(screen.queryByTestId('loginEmail')).toBeInTheDocument();
+        // override server in this request interception
+        server.use(
+            rest.post('https://server-todo-app.glitch.me/login', async (req, res, ctx) => {
+                const response = res.once(
+                    ctx.status(400, 'error')
+                );
+                return response;
+            }),
+        );
 
         // insert email and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'troti@email.com' } }));
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test@email.com' } });
 
         let loginState = store.getState().loginState;
-        expect(loginState.email).toBe('troti@email.com');
+        expect(loginState.email).toBe('test@email.com');
 
         // insert password and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Passss1234' } }));
+        fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'pass1234' } });
 
         loginState = store.getState().loginState;
-        waitFor(() => expect(loginState.password).toEqual('Passss1234'));
+        expect(loginState.password).toEqual('pass1234');
 
         // submit and verify we are still on login page and warning of wrong email or password has appeared
-        waitFor(() => fireEvent.click(screen.queryByTestId('loginSubmit')));
+        fireEvent.click(screen.queryByTestId('loginSubmit'));
         
-        waitFor(() => expect(screen.queryByTestId('loginEmail')).toBeInTheDocument());
-        waitFor(() => expect(screen.queryByTestId('loginWarning')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('loginEmail')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('loginWarning')).toBeInTheDocument());
     });
 
     it('should log in user on submit if user is valid', async () => {
-        // verify we are on login page
-        expect(screen.queryByTestId('loginEmail')).toBeInTheDocument();
-
         // insert email and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'troti@email.com' } }));
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test@email.com' } });
 
         let loginState = store.getState().loginState;
-        expect(loginState.email).toBe('troti@email.com');
+        expect(loginState.email).toBe('test@email.com');
 
         // insert password and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } }));
+        fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } });
 
         loginState = store.getState().loginState;
-        waitFor(() => expect(loginState.password).toEqual('Pass1234'));
+        expect(loginState.password).toEqual('Pass1234');
 
         // submit and verify we navigated to inbox
-        waitFor(() => fireEvent.click(screen.queryByTestId('loginSubmit')));
+        fireEvent.click(screen.queryByTestId('loginSubmit'));
 
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+
+        // return no login for next test (odd behavior - test not cleaning up
+        fireEvent.click(screen.queryByTestId('logout'));
     });
 
     it('should log in user on submit if user is valid on enter keydown', async () => {
-        // verify we are on login page
-        expect(screen.queryByTestId('loginEmail')).toBeInTheDocument();
-
         // insert email and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'troti@email.com' } }));
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test@email.com' } });
 
         let loginState = store.getState().loginState;
-        expect(loginState.email).toBe('troti@email.com');
+        expect(loginState.email).toBe('test@email.com');
 
         // insert password and verify state
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } }));
+        fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } });
 
         loginState = store.getState().loginState;
-        waitFor(() => expect(loginState.password).toEqual('Pass1234'));
+        expect(loginState.password).toEqual('Pass1234');
 
         // submit and verify we navigated to inbox
-        waitFor(() => fireEvent.focus(screen.queryByTestId('loginEmail')));
-        waitFor(() => fireEvent.keyDown(screen.queryByTestId('loginEmail'), { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 }));
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        fireEvent.focus(screen.queryByTestId('loginEmail'));
+        fireEvent.keyDown(screen.queryByTestId('loginEmail'), { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 });
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
     });
 });

@@ -27,11 +27,11 @@ const Upcoming = (props) => {
 
                         if (todo.priority === 3) {
                             return(
-                                <div className={ 'border-[1px] border-teal-400 w-[21rem] rounded m-3' } key={ todo.id } data-testid={ 'editTodo' } >
+                                <div className={ 'border-[1px] border-teal-400 w-[21rem] rounded m-3' } key={ todo.id } >
                                     <div className={ 'flex justify-between' } >
                                         <span className={ 'w-52 h-6 bg-teal-400 mt-3 ml-3 rounded' } ></span>
                                         <div className={ 'flex justify-between' } >
-                                            <img src={ require('../../../resources/icons/edit.png') } width={ 30 } className={ 'mt-3 mr-4 cursor-pointer hover:scale-125' } alt={ 'edit todo' } title={ 'Edit todo' } name={ todo.id } onClick={ props.onClickEdit } />
+                                            <img src={ require('../../../resources/icons/edit.png') } data-testid={ 'editTodo' } width={ 30 } className={ 'mt-3 mr-4 cursor-pointer hover:scale-125' } alt={ 'edit todo' } title={ 'Edit todo' } name={ todo.id } onClick={ props.onClickEdit } />
                                             <img src={ require('../../../resources/icons/delete.png') } width={ 30 } className={ 'mt-3 mr-3 cursor-pointer hover:scale-125' } alt={ 'delete todo' } title={ 'Delete todo' } name={ todo.id } onClick={ props.onClickDelete } />
                                         </div>
                                     </div>

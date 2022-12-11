@@ -1,6 +1,6 @@
 import { SignUp } from "../../PresentationalComponents/SignUp/SignUp";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUsername, selectEmail, selectPassword, selectIsSignedUp, selectFetchStatus } from "../../../redux/features/signUpSlice";
+import { selectUsername, selectEmail, selectPassword, selectFetchStatus } from "../../../redux/features/signUpSlice";
 import { handleChange, handleReset } from "../../../redux/features/signUpSlice";
 import { useNavigate } from "react-router-dom";
 import { signUpApi } from "../../../resources/utils/callBackendApi";
@@ -12,7 +12,6 @@ const ContainerSignUp = () => {
     const username = useSelector(selectUsername);
     const email = useSelector(selectEmail);
     const password = useSelector(selectPassword);
-    const isSignedUp = useSelector(selectIsSignedUp);
     const fetchStatus = useSelector(selectFetchStatus);
     var csrfToken = useSelector(selectCsrfToken);
 
@@ -36,7 +35,7 @@ const ContainerSignUp = () => {
         } else if (fetchStatus === 'failed') {
             document.getElementById('signupWarning').className = 'text-center bg-amber-700 w-1/4 text-lg rounded-t';
         };
-    }, [ fetchStatus, navigate, dispatch ]);
+    }, [ fetchStatus ]);
 
     // handle changes in the inputs by updating the store state
     const eventHandler = (event) => {

@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 
 export const handlers = [
-    rest.get('http://localhost:8080/getCsrfToken', async (req, res, ctx) => {
+    rest.get('https://server-todo-app.glitch.me/getCsrfToken', (req, res, ctx) => {
         const response = res(
             ctx.status(200),
             ctx.delay(),
@@ -12,29 +12,7 @@ export const handlers = [
         return response;
     }),
 
-    rest.post('http://localhost:8080/signup', async (req, res, ctx) => {
-        const response = res.once(
-            ctx.status(400),
-            ctx.delay(),
-            ctx.json({
-                error: 'failed'
-            })
-        );
-        return response;
-    }),
-
-    rest.post('http://localhost:8080/signup', async (req, res, ctx) => {
-        const response = res.once(
-            ctx.status(400),
-            ctx.delay(),
-            ctx.json({
-                error: 'failed'
-            })
-        );
-        return response;
-    }),
-
-    rest.post('http://localhost:8080/signup', async (req, res, ctx) => {
+    rest.post('https://server-todo-app.glitch.me/signup', (req, res, ctx) => {
         const response = res(
             ctx.status(201),
             ctx.delay(),
@@ -45,42 +23,22 @@ export const handlers = [
         return response;
     }),
 
-    rest.post('http://localhost:8080/login', async (req, res, ctx) => {
-        const response = res.once(
-            ctx.status(400),
-            ctx.delay(),
-            ctx.json({
-                error: 'failed'
-            })
-        );
-        return response;
-    }),
-
-    rest.post('http://localhost:8080/login', async (req, res, ctx) => {
-        const response = res.once(
-            ctx.status(400),
-            ctx.delay(),
-            ctx.json({
-                error: 'failed'
-            })
-        );
-        return response;
-    }),
-
-    rest.post('http://localhost:8080/login', async (req, res, ctx) => {
+    rest.post('https://server-todo-app.glitch.me/login', (req, res, ctx) => {
         const response = res(
             ctx.status(200),
             ctx.delay(),
             ctx.json({
                 token: process.env.REACT_APP_LOGIN_TOKEN,
-                username: 'troti',
+                username: 'test',
                 userId: '21'
             })
         );
         return response;
     }),
 
-    rest.post('http://localhost:8080/gettodos', async (req, res, ctx) => {
+    rest.post('https://server-todo-app.glitch.me/gettodos', (req, res, ctx) => {
+        const today = new Date().getDate();
+
         const response = res(
             ctx.status(200),
             ctx.delay(),
@@ -100,7 +58,7 @@ export const handlers = [
                     "description": "Get a pen today",
                     "project": "Home",
                     "comments": "Blue today",
-                    "due_date": "2022-11-29T15:00:00.000Z",
+                    "due_date": `2022-12-${today}T15:00:00.000Z`,
                     "priority": 3,
                     "user_id": 21,
                     "seen": false
@@ -109,7 +67,7 @@ export const handlers = [
                     "id": 14,
                     "description": "Get a pen",
                     "project": "Home",
-                    "comments": "Blue",
+                    "comments": "Blue todo past",
                     "due_date": "2022-11-12T15:00:00.000Z",
                     "priority": 3,
                     "user_id": 21,
@@ -120,7 +78,7 @@ export const handlers = [
         return response;
     }),
 
-    rest.put('http://localhost:8080/updatetodo/:id', async (req, res, ctx) => {
+    rest.put('https://server-todo-app.glitch.me/updatetodo/:id', (req, res, ctx) => {
         const id = req.params.id;
         
         const response = res(
@@ -128,7 +86,7 @@ export const handlers = [
             ctx.delay(),
             ctx.json({
                 "id": id,
-                "description": "Get a pen",
+                "description": "Get a pen updated on upcoming window.",
                 "project": "Home todo was updated on upcoming window",
                 "comments": "Blue",
                 "due_date": "2022-12-25T15:00:00.000Z",
@@ -140,7 +98,7 @@ export const handlers = [
         return response;
     }),
 
-    rest.post('http://localhost:8080/addtodo', async (req, res, ctx) => {
+    rest.post('https://server-todo-app.glitch.me/addtodo', (req, res, ctx) => {
         const response = res(
             ctx.status(201),
             ctx.delay(),
@@ -149,7 +107,7 @@ export const handlers = [
         return response;
     }),
 
-    rest.delete('http://localhost:8080/deletetodo/14', async (req, res, ctx) => {
+    rest.delete('https://server-todo-app.glitch.me/deletetodo/14', (req, res, ctx) => {
         const response = res(
             ctx.status(201),
             ctx.delay(),
@@ -158,7 +116,7 @@ export const handlers = [
         return response;
     }),
 
-    rest.post('http://localhost:8080/logout', async (req, res, ctx) => {
+    rest.post('https://server-todo-app.glitch.me/logout', (req, res, ctx) => {
         const response = res(
             ctx.status(201),
             ctx.delay(),

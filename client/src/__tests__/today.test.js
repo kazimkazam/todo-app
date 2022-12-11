@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux';
 import { store } from '../redux/store/store'
-import { render, fireEvent, screen, waitFor, cleanup } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import App from '../App/App';
 
@@ -24,28 +25,30 @@ describe('tests related with Container Today', () => {
             </Provider>
         );
 
-        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'troti@email.com' } });
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test@email.com' } });
         fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } });
         fireEvent.click(screen.queryByTestId('loginSubmit'));
 
-        waitFor(() => fireEvent.click(screen.queryByTestId('navigateToToday')));
+        userEvent.click(await screen.findByTestId('navigateToToday'));
     });
 
     afterEach(() => {
-        cleanup();
+        // return to login for next test (odd behavior - test not cleaning up react tree in time...)
+        fireEvent.click(screen.queryByTestId('logout'));
     });
 
     it('should load with initial state', async () => {
-        waitFor(() => expect(screen.queryByTestId('today')).toBeInTheDocument());
-
         let todosState = store.getState().todosState;
         expect(todosState).toEqual(initialState);
+
+        await waitFor(() => expect(screen.queryByTestId('today')).toBeInTheDocument());
     });
 
     it('should load today todos after fetching', async () => {
-        waitFor(() => expect(screen.queryByTestId('today')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('today')).toBeInTheDocument());
 
-        waitFor(() => expect(screen.findByText('Get a pen today')).toBeInTheDocument());
-        waitFor(() => expect(screen.findByText('Blue today')).toBeInTheDocument());
+        // update 
+        await waitFor(() => expect(screen.queryByText('Get a pen today')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByText('Blue today')).toBeInTheDocument());
     });
 });

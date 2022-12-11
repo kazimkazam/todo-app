@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import App from '../App/App';
 
-describe('tests related with Container Upcoming', () => {
+describe('tests related with Container All Todos', () => {
     const initialState = {
         todos: [],
         inbox: [],
@@ -25,11 +25,11 @@ describe('tests related with Container Upcoming', () => {
             </Provider>
         );
 
-        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'troti@email.com' } });
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test@email.com' } });
         fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } });
         fireEvent.click(screen.queryByTestId('loginSubmit'));
 
-        userEvent.click(await screen.findByTestId('navigateToUpcoming'));
+        userEvent.click(await screen.findByTestId('navigateToAllTodos'));
     });
 
     afterEach(() => {
@@ -41,13 +41,20 @@ describe('tests related with Container Upcoming', () => {
         let todosState = store.getState().todosState;
         expect(todosState).toEqual(initialState);
 
-        await waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('allTodos')).toBeInTheDocument());
     });
 
-    it('should load upcoming todos after fetching', async () => {
-        await waitFor(() => expect(screen.queryByTestId('upcoming')).toBeInTheDocument());
+    it('should load all todos after fetching', async () => {
+        await waitFor(() => expect(screen.queryByTestId('allTodos')).toBeInTheDocument());
 
-        await waitFor(() => expect(screen.queryByText('Get a pen')).toBeInTheDocument());
+        // past todo
+        await waitFor(() => expect(screen.queryByText('Blue todo past')).toBeInTheDocument());
+
+        // today todo
+        await waitFor(() => expect(screen.queryByText('Get a pen today')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByText('Blue today')).toBeInTheDocument());
+
+        // upcoming todo
         await waitFor(() => expect(screen.queryByText('Text that should be showing!')).toBeInTheDocument());
     });
 });

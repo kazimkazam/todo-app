@@ -37,7 +37,7 @@ const ContainerToday = () => {
         if (!userId) {
             navigate('/');
         };
-    }, [ userId, navigate ]);
+    }, [ userId ]);
 
     // get csrf token at first render
     useEffect(() => {

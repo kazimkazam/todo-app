@@ -6,7 +6,7 @@ const EditTodosPopup = (props) => {
                 <img className={ 'cursor-pointer hover:scale-125' } src={ require('../../../resources/icons/close.png') } width={ 30 } title={ 'Close window' } alt={ 'Close' } onClick={ props.closeWindow } data-testid={ 'editTodosWindowClose' } />
             </div>
 
-            <div id={ 'editTodoWarning' } className={ 'bg-amber-700 text-center hidden' } >
+            <div id={ 'editTodoWarning' } className={ 'bg-amber-700 text-center hidden' } data-testid={ 'editTodoWarning' } >
                 <p>Please make sure there are no empty fields before submitting.</p>
             </div>
 

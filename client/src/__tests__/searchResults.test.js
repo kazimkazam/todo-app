@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux';
 import { store } from '../redux/store/store'
-import { render, fireEvent, screen, waitFor, cleanup } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import App from '../App/App';
 
@@ -25,17 +26,18 @@ describe('tests related with searching todos', () => {
             </Provider>
         );
 
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'troti@email.com' } }));
-        waitFor(() => fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } }));
-        waitFor(() => fireEvent.click(screen.queryByTestId('loginSubmit')));
+        fireEvent.change(screen.queryByTestId('loginEmail'), { target: { value: 'test@email.com' } });
+        fireEvent.change(screen.queryByTestId('loginPassword'), { target: { value: 'Pass1234' } });
+        fireEvent.click(screen.queryByTestId('loginSubmit'));
     });
 
     afterEach(() => {
-        cleanup();
+        // return to login for next test (odd behavior - test not cleaning up react tree in time...)
+        fireEvent.click(screen.queryByTestId('logout'));
     });
 
     it('should load with initial state', async () => {
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
         let searchResultsState = store.getState().todosState.searchResults;
         expect(searchResultsState).toEqual(initialState.searchResults);
@@ -43,51 +45,47 @@ describe('tests related with searching todos', () => {
 
     it('should handle changes on input', async () => {
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
         // fire change event on search field
-        waitFor(() => fireEvent.change(screen.queryByTestId('searchInput'), { target: { value: 'Text that should be showing!' } }));
+        fireEvent.change(screen.queryByTestId('searchInput'), { target: { value: 'Text that should be showing!' } });
 
         // verify
-        let searchResultsState = store.getState().todosState.searchResults;
-        waitFor(() => expect(searchResultsState).toEqual('Text that should be showing!'));
+        let searchResultsTopic = store.getState().todosState.searchTopic;
+        await waitFor(() => expect(searchResultsTopic).toEqual('Text that should be showing!'));
     });
     
     it('should search for existent todo on enter keydown and find it', async () => {
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
         // fire change event on search field
-        waitFor(() => fireEvent.change(screen.queryByTestId('searchInput'), { target: { value: 'Text that should be showing!' } }));
-
-        // verify
-        let searchResultsState = store.getState().todosState.searchResults;
-        waitFor(() => expect(searchResultsState).toEqual('Text that should be showing!'));
+        fireEvent.change(screen.queryByTestId('searchInput'), { target: { value: 'Text that should be showing!' } });
 
         // focus search field
-        waitFor(() => fireEvent.focus(screen.queryByTestId('searchInput')));
+        fireEvent.click(screen.queryByTestId('searchInput'));
 
         // fire event enter keydown and verify
-        waitFor(() => fireEvent.keyDown(screen.queryByTestId('searchInput'), { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 }));
-        waitFor(() => expect(screen.findByText('Text that should be showing!')).toBeInTheDocument());
+        await waitFor(() => userEvent.type(screen.queryByTestId('searchInput'), '{enter}'));
+        await waitFor(() => expect(screen.queryByText('Text that should be showing!')).toBeInTheDocument());
     });
 
     it('should search for nonexistent todo and not find it', async () => {
         // verify we are on inbox
-        waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByTestId('inbox')).toBeInTheDocument());
 
         // fire change event on search field
-        waitFor(() => fireEvent.change(screen.queryByTestId('searchInput'), { target: { value: 'potatos' } }));
+        fireEvent.change(screen.queryByTestId('searchInput'), { target: { value: 'potatos' } });
 
         // verify
-        let searchResultsState = store.getState().todosState.searchResults;
-        waitFor(() => expect(searchResultsState).toEqual('potatos'));
+        let searchResultsTopic = store.getState().todosState.searchTopic;
+        await waitFor(() => expect(searchResultsTopic).toEqual('potatos'));
 
         // focus search field
-        waitFor(() => fireEvent.focus(screen.queryByTestId('searchInput')));
+        fireEvent.click(screen.queryByTestId('searchInput'));
 
         // fire event enter keydown and verify
-        waitFor(() => fireEvent.keyDown(screen.queryByTestId('searchInput'), { key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13 }));
-        waitFor(() => expect(screen.findByText('No todos related with potatos were found...')).toBeInTheDocument());
+        await waitFor(() => userEvent.type(screen.queryByTestId('searchInput'), '{enter}'));
+        await waitFor(() => expect(screen.queryByText('No todos related with potatos were found...')).toBeInTheDocument());
     });
 });
