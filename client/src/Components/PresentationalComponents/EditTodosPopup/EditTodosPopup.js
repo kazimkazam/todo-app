@@ -11,7 +11,7 @@ const EditTodosPopup = (props) => {
             </div>
 
             <div id={ 'editTodoInputInvalidWarning' } className={ 'bg-amber-700 text-center hidden' } data-testid={ 'editTodoInputInvalidWarning' } >
-                <p>Please make sure to submit valid input values.</p>
+                <p>Please make sure to submit a valid due date.</p>
             </div>
             
             <div className={ 'flex flex-col justify-evenly place-items-center p-2 mb-4' } >
