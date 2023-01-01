@@ -75,7 +75,7 @@ The application consists of the following main components:
 
 ### Sign up
 
-The user can create a new account that is saved in a database to be used to login later;
+The user can create a new account that is saved in a database to be used to login later. As the website is just a project, the user can insert an 'hypothetical' email address, however, it needs to be in the format of an email, e.g., address@email.com;
 
 ### Login
 
