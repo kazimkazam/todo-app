@@ -253,7 +253,7 @@ The application has now a responsive design considering the 1536px, 1280px, and 
 
 ## Author
 
-@kazimkazam (monsieurkazimkazam@gmail.com).
+[@kazimkazam](https://github.com/kazimkazam) (monsieurkazimkazam@gmail.com).
 
 ## References
 
