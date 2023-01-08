@@ -44,6 +44,23 @@ export const addTodosSlice = createSlice({
         },
 
         handleDate: (state) => {
+            // correct month input when user inserts one digit, e.g., 1 --> January instead of 01
+            if (state.newTodo.dueMonth.length === 1) {
+                state.newTodo.dueMonth = `0${state.newTodo.dueMonth}`;
+            };
+            // correct day input
+            if (state.newTodo.dueDay.length === 1) {
+                state.newTodo.dueDay = `0${state.newTodo.dueDay}`;
+            };
+            // correct hour input
+            if (state.newTodo.dueHour.length === 1) {
+                state.newTodo.dueHour = `0${state.newTodo.dueHour}`;
+            };
+            // correct minutes input
+            if (state.newTodo.dueMinutes.length === 1) {
+                state.newTodo.dueMinutes = `0${state.newTodo.dueMinutes}`;
+            };
+
             state.newTodo.dueDate = `${state.newTodo.dueYear}${state.newTodo.dueMonth}${state.newTodo.dueDay} ${state.newTodo.dueHour}${state.newTodo.dueMinutes}00`;
         },
 
