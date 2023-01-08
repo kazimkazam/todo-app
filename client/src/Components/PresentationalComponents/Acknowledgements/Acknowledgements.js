@@ -22,7 +22,7 @@ const Acknowledgements = () => {
             <br></br>
             <h2 className={ 'font-bold text-lg' } >Terms of Service</h2>
             <p>By accessing the present website you agree to the Terms of Service as outlined below.</p>
-            <p>Passwords Generator may revise these conditions of use at any time by updating this posting.
+            <p>todo app may revise these conditions of use at any time by updating this posting.
 This page should be visited periodically to review the conditions of use stated here, because they are binding on you.
 If you do not accept the conditions of use, this website should not be used by you.</p>
 
@@ -33,7 +33,7 @@ If you do not accept the conditions of use, this website should not be used by y
             <br></br>
             <h3 className={ 'font-bold text-md' } >Accuracy of Information</h3>
             <p>The material may contain inaccuracies or typographical errors. All items listed for sale are considered an invitation to treat.
-Passwords Generator makes no claims, warranties or liabilities of the use of the information on this website. Changes are periodically made to
+todo app makes no claims, warranties or liabilities of the use of the information on this website. Changes are periodically made to
 this website and may be made at any time.</p>
 
             <br></br>
