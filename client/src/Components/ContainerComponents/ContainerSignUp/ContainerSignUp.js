@@ -7,6 +7,7 @@ import { signUpApi } from "../../../resources/utils/callBackendApi";
 import { useEffect } from "react";
 import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
 import { getCsrfToken } from "../../../resources/utils/getCsrfToken";
+import validator from 'validator';
 
 const ContainerSignUp = () => {
     const username = useSelector(selectUsername);
@@ -44,17 +45,48 @@ const ContainerSignUp = () => {
 
     // dispatch the sign up attempt on button click
     const signupHandler = () => {
-        // get a new csrf token
-        dispatch(getCsrfToken());
-        const credentials = {
-            signupCredentials: {
-                username: username,
-                email: email,
-                password: password
-            },
-            csrfToken: csrfToken
+        const checkEmail = validator.isEmail(email);
+        
+        let checkPassword = false;
+        const containsDigits = /[0-9]/.test(password);
+        const containsUpper = /[A-Z]/.test(password);
+        const passLength = password.length;
+
+        if (containsDigits && containsUpper && passLength >= 8) {
+            checkPassword = true;
         };
-        dispatch(signUpApi(credentials));
+
+        // if valid email and password dispatch sign up
+        if (checkEmail && checkPassword) {
+            document.getElementById('signupEmailWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
+            document.getElementById('singupPasswordWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
+
+            // get a new csrf token
+            dispatch(getCsrfToken());
+            const credentials = {
+                signupCredentials: {
+                    username: username,
+                    email: email,
+                    password: password
+                },
+                csrfToken: csrfToken
+            };
+            dispatch(signUpApi(credentials));
+        };
+        
+        // if invalid email show warning
+        if (!checkEmail) {
+            document.getElementById('signupEmailWarning').className = 'text-center bg-amber-700 w-full text-lg rounded';
+        } else {
+            document.getElementById('signupEmailWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
+        }
+
+        // if invalid password show warning
+        if (!checkPassword) {
+            document.getElementById('signupPasswordWarning').className = 'text-center bg-amber-700 w-full text-lg rounded';
+        } else {
+            document.getElementById('signupPasswordWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
+        }
     };
 
     const clickHandler = () => {

@@ -14,8 +14,14 @@ const Login = (props) => {
                         <h1 className={ 'text-2xl font-bold pl-2' } >todo</h1>
                     </div>
 
+                    <div id={ 'loginEmailWarning' } className={ 'hidden text-center bg-amber-700 w-full text-lg rounded' } data-testid={ 'loginEmailWarning' } >
+                        <p>Please insert a valid email address!</p>
+                    </div>
                     <input className={ 'text-center bg-neutral-50 placeholder:text-neutral-900 ring-2 ring-black text-black xxl:w-72 xl:w-72 lg:w-60 h-7 rounded-md outline-none hover:bg-neutral-900 hover:ring-white hover:text-white hover:placeholder:text-white focus:bg-neutral-900 focus:text-white focus:ring-white' } id={ 'email' } data-testid={ 'loginEmail' } name={ 'email' } type={ 'text' } placeholder={ 'Email' } onChange={ props.onChange } onKeyDown={ props.onKeyDown } />
                     
+                    <div id={ 'loginPasswordWarning' } className={ 'hidden text-center bg-amber-700 w-full text-lg rounded' } data-testid={ 'loginPasswordWarning' } >
+                        <p>Please insert a valid password! It must contain at least 8 characters, 1 capital letter and 1 number.</p>
+                    </div>
                     <input className={ 'text-center bg-neutral-50 placeholder:text-neutral-900 ring-2 ring-black text-black xxl:w-72 xl:w-72 lg:w-60 h-7 rounded-md outline-none hover:bg-neutral-900 hover:ring-white hover:text-white hover:placeholder:text-white focus:bg-neutral-900 focus:text-white focus:ring-white' } id={ 'password' } data-testid={ 'loginPassword' } name={ 'password' } type={ 'password' } placeholder={ 'Password' } onChange={ props.onChange } onKeyDown={ props.onKeyDown } />
                     
                     <input className={ 'bg-teal-500 font-bold text-xl w-60 h-14 rounded outline-none ring-2 ring-neutral-50 cursor-pointer' } type={ 'submit' } value={ 'Log In' } data-testid={ 'loginSubmit' } onClick={ props.onClick } />

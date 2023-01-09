@@ -7,6 +7,7 @@ import { handleChange } from '../../../redux/features/loginSlice';
 import { useEffect } from "react";
 import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
 import { getCsrfToken } from "../../../resources/utils/getCsrfToken";
+import validator from "validator";
 
 const ContainerLogin = () => {
     const email = useSelector(selectEmail);
@@ -43,16 +44,47 @@ const ContainerLogin = () => {
 
     // dispatch the login attempt on button click
     const loginHandler = () => {
-        // get a new csrf token
-        dispatch(getCsrfToken());
-        let credentials = {
-            loginCredentials: {
-                email: email,
-                password: password
-            },
-            csrfToken: csrfToken
+        const checkEmail = validator.isEmail(email);
+        
+        let checkPassword = false;
+        const containsDigits = /[0-9]/.test(password);
+        const containsUpper = /[A-Z]/.test(password);
+        const passLength = password.length;
+
+        if (containsDigits && containsUpper && passLength >= 8) {
+            checkPassword = true;
         };
-        dispatch(loginApi(credentials));
+
+        // if valid email and password dispatch sign up
+        if (checkEmail && checkPassword) {
+            document.getElementById('loginEmailWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
+            document.getElementById('loginPasswordWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
+
+            // get a new csrf token
+            dispatch(getCsrfToken());
+            let credentials = {
+                loginCredentials: {
+                    email: email,
+                    password: password
+                },
+                csrfToken: csrfToken
+            };
+            dispatch(loginApi(credentials));
+        };
+
+        // if invalid email show warning
+        if (!checkEmail) {
+            document.getElementById('loginEmailWarning').className = 'text-center bg-amber-700 w-full text-lg rounded';
+        } else {
+            document.getElementById('loginEmailWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
+        }
+
+        // if invalid password show warning
+        if (!checkPassword) {
+            document.getElementById('loginPasswordWarning').className = 'text-center bg-amber-700 w-full text-lg rounded';
+        } else {
+            document.getElementById('loginPasswordWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
+        }
     };
 
     const clickHandler = () => {
