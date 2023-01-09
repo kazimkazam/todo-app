@@ -2,7 +2,7 @@ import { Login } from "../../PresentationalComponents/Login/Login";
 import { loginApi } from "../../../resources/utils/callBackendApi";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { selectEmail, selectPassword, selectFetchStatus } from "../../../redux/features/loginSlice";
+import { selectEmail, selectPassword, selectIsLoggedIn, selectFetchStatus } from "../../../redux/features/loginSlice";
 import { handleChange } from '../../../redux/features/loginSlice';
 import { useEffect } from "react";
 import { selectCsrfToken } from "../../../redux/features/csrfTokenSlice";
@@ -57,9 +57,6 @@ const ContainerLogin = () => {
 
         // if valid email and password dispatch sign up
         if (checkEmail && checkPassword) {
-            document.getElementById('loginEmailWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
-            document.getElementById('loginPasswordWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
-
             // get a new csrf token
             dispatch(getCsrfToken());
             let credentials = {

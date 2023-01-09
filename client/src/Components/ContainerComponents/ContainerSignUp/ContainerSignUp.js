@@ -58,9 +58,6 @@ const ContainerSignUp = () => {
 
         // if valid email and password dispatch sign up
         if (checkEmail && checkPassword) {
-            document.getElementById('signupEmailWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
-            document.getElementById('singupPasswordWarning').className = 'hidden text-center bg-amber-700 w-full text-lg rounded';
-
             // get a new csrf token
             dispatch(getCsrfToken());
             const credentials = {
