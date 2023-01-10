@@ -147,6 +147,14 @@ In this section it is presented the acknowledgements, and the terms of use of th
 
 ![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/signupWrong.png?raw=true)
 
+#### Sign-up when invalid email is inserted
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/signupInvalidEmail.png?raw=true)
+
+#### Sign-up when invalid password is inserted
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/signupInvalidPassword.png?raw=true)
+
 ### Login
 
 #### Login
@@ -156,6 +164,12 @@ In this section it is presented the acknowledgements, and the terms of use of th
 #### Login when user tries to submit invalid inputs
 
 ![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/loginWrong.png?raw=true)
+
+#### Login when invalid email and / or password is inserted (separate warnings as in sign up)
+
+These warnings will not tell you if you are inserting an email and password that are saved on the database, they just hint you if what you have inserted complies with a set of rules for emails and passwords accepted by the website.
+
+![image](https://github.com/kazimkazam/todo-app/blob/master/screenshots/app/loginInvalidEmailAndPassword.png?raw=true)
 
 ### Notifications
 
