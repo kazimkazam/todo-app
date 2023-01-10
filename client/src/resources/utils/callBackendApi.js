@@ -12,7 +12,13 @@ const signUpApi = createAsyncThunk('signUpState/signUpUser', async (creds) => {
         credentials: 'include',
         body: JSON.stringify(creds.signupCredentials)
     });
-    return response.json();
+    
+    if (response.ok) {
+        return response.json();
+    } else {
+        throw new Error(`status code ${response.status}`);
+    };
+    // return response.json();
 });
 
 const loginApi = createAsyncThunk('loginState/fetchUser', async (creds) => {
@@ -26,7 +32,13 @@ const loginApi = createAsyncThunk('loginState/fetchUser', async (creds) => {
         credentials: 'include',
         body: JSON.stringify(creds.loginCredentials)
     });
-    return response.json();
+    
+    if (response.ok) {
+        return response.json();
+    } else {
+        throw new Error(`status code ${response.status}`);
+    };
+    // return response.json();
 });
 
 const logoutApi = createAsyncThunk('logoutState/endSession', async (creds) => {

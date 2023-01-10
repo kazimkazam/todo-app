@@ -5,7 +5,7 @@ const SignUp = (props) => {
         <div className={ 'bg-neutral-900 text-slate-50 font-sans h-screen flex flex-col justify-between' } >
             <div className={ 'flex flex-col justify-center place-items-center xxl:mt-40 xl:mt-32 lg:mt-32' }>
                 <div id={ 'signupWarning' } className={ 'hidden text-center bg-amber-700 w-1/4 text-lg rounded-t' } data-testid={ 'signupWarning' } >
-                    <p>Ooops... Wrong email and/or password! Please try again.</p>
+                    <p>Ooops... Username is already in use! Please try again.</p>
                 </div>
                 
                 <div className={ 'bg-[#0B5269] flex flex-col justify-evenly place-items-center xxl:w-1/4 xl:w-1/4 lg:w-72 h-96 rounded' } >
