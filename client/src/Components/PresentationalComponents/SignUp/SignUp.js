@@ -35,7 +35,7 @@ const SignUp = (props) => {
             </div>
 
             <div className={ 'bg-[#0B5269] text-center text-lg flex flex-col justify-center place-items-center xxl:h-32 xl:h-32 lg:h-20' } >
-                <h3 className={ 'font-bold my-1' } >todo 2022 ©</h3>
+                <h3 className={ 'font-bold my-1' } >todo 2023 ©</h3>
             </div>
         </div>
     );

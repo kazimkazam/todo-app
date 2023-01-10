@@ -75,52 +75,61 @@ The application consists of the following main components:
 
 ### Sign up
 
-The user can create a new account that is saved in a database to be used to login later. As the website is just a project, the user can insert an 'hypothetical' email address, however, it needs to be in the format of an email, e.g., address@email.com;
+The user can create a new account that is saved in a database to be used to login later. As the website is just a project, the user can insert an 'hypothetical' email address to check the website out, however, it needs to be in the format of an email, e.g., address@email.com;
+
+If you try to create an account with an already used username, the following warning will appear "Ooops... Username is already in use! Please try again." above the sign up div;
+
+Also, the website checks if the email and password comply with a set of rules, and if not, a warning will let you know what you need to correct.
 
 ### Login
 
 The user can login with an existing account created using the sign up page;
 
+If you try to login with wrong credentials, the following warning will appear "Ooops... Wrong email and/or password! Please try again." above the login div;
+
+Also, the website checks if the email and password comply with a set of rules, and if not, a warning will let you know what you need to correct.
+
 ### Sidebar
 
-The user can select which page he wants to access: Inbox, Today, Upcoming and All Todos. 
-Another feature (not yet implemented) is to allow the user to create personal Projects and access them through this sidebar. These Projects would also appear in a list from where the user could choose the appropriate project when creating or editing a todo;
+The user can select which page he wants to access: Inbox, Today, Upcoming and All Todos;
+
+Another feature (not yet implemented) is to allow the user to create personal Projects and access them through this sidebar. These Projects would also appear in a list from where the user could choose the appropriate project when creating or editing a todo.
 
 ### Header
 
-Contains the application logo, the search field, and add new todo, notifications, and logout buttons; 
+Contains the application logo, the search field, and add new todo, notifications, and logout buttons.
 
 ### Notifications
 
-The notifications icon informs the user if there are new todos and if there are any todos that he should pay attention that day. If so, by clicking on the notifications icon, the user will access the notifications window where such information will be available;
+The notifications icon informs the user if there are new todos and if there are any todos that he should pay attention that day. If so, by clicking on the notifications icon, the user will access the notifications window where such information will be available.
 
 ### Search field and search results
 
-The search field allows to look up for any topic that the user may want to search. The results will show any todo with its description, associated comments or projects containing the topic that the user was trying to find. If no results are found, the page will inform the user of that;
+The search field allows to look up for any topic that the user may want to search. The results will show any todo with its description, associated comments or projects containing the topic that the user was trying to find. If no results are found, the page will inform the user of that.
 
 ### Inbox todos
 
-The Inbox page showw new todos, i.e., todos that the user had not seen before;
+The Inbox page showw new todos, i.e., todos that the user had not seen before.
 
 ### Today todos and Upcoming todos
 
-The Today and Ppcoming pages show todos that have a due date of today or upcoming dates, respectively;
+The Today and Ppcoming pages show todos that have a due date of today or upcoming dates, respectively.
 
 ### All todos
 
-The All Todos page shows every todo saved in the database related with the user;
+The All Todos page shows every todo saved in the database related with the user.
 
 ### Add new todos
 
-By clicking on the add todos icon in the header, a add todo window will pop up with the input fields that will allow the user to then submit a new todo;
+By clicking on the add todos icon in the header, a add todo window will pop up with the input fields that will allow the user to then submit a new todo.
 
 ### Edit todos
 
-Each todo presents a edit icon which when clicked, a edit todo window will pop up with the input fields that will allow the user to then edit the todo. When the window opens, the input fields have the current variables state as placeholder text;
+Each todo presents a edit icon which when clicked, a edit todo window will pop up with the input fields that will allow the user to then edit the todo. When the window opens, the input fields have the current variables state as placeholder text.
 
 ### Delete todos
 
-Each todo presents a delete icon which when clicked, will delete the todo from the database;
+Each todo presents a delete icon which when clicked, will delete the todo from the database.
 
 ### Acknowledgements and Terms of Use
 
@@ -249,7 +258,9 @@ This way, it was possible to test the client as a whole as recommended by React 
 
 ## Future Work
 
-The application has now a responsive design considering the 1536px, 1280px, and 1024px minimum-width breakpoints. In that perspective, future work will address this issue and make it responsive to smaller screen sizes comprising, e.g., phones.
+The application has now a responsive design considering the 1536px, 1280px, and 1024px minimum-width breakpoints. In that perspective, future work will address this issue and make it responsive to smaller screen sizes comprising, e.g., phones;
+
+Another feature is to allow the user to create personal Projects and access them through the sidebar. These Projects would also appear in a list from where the user could choose the appropriate project when creating or editing a todo.
 
 ## Author
 
