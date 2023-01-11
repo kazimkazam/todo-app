@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import { MemoryRouter } from 'react-router-dom'; // if testing replace BrowserRouter with MemoryRouter
 import { Layout } from './Layout';
 import { ContainerLogin } from '../Components/ContainerComponents/ContainerLogin/ContainerLogin';
@@ -8,15 +8,13 @@ function App() {
   return (
     <div className={ 'bg-neutral-900 h-min text-slate-50 font-myFonts' }>
       {/* <MemoryRouter> */}
-      {/* <Router> */}
-      <HashRouter>
+      <Router>
         <Routes>
           <Route path={ '/' } element={ <ContainerLogin /> } ></Route>
           <Route path={ '/signup' } element={ <ContainerSignUp /> } ></Route>
           <Route path={ '*' } element={ <Layout /> } ></Route>
         </Routes>
-      </HashRouter>
-      {/* </Router> */}
+      </Router>
       {/* </MemoryRouter> */}
     </div>
   );
