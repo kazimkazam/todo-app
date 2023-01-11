@@ -8,15 +8,15 @@ function App() {
   return (
     <div className={ 'bg-neutral-900 h-min text-slate-50 font-myFonts' }>
       {/* <MemoryRouter> */}
-      <Router>
-      {/* <HashRouter> */}
+      {/* <Router> */}
+      <HashRouter>
         <Routes>
           <Route path={ '/' } element={ <ContainerLogin /> } ></Route>
           <Route path={ '/signup' } element={ <ContainerSignUp /> } ></Route>
           <Route path={ '*' } element={ <Layout /> } ></Route>
         </Routes>
-      {/* </HashRouter> */}
-      </Router>
+      </HashRouter>
+      {/* </Router> */}
       {/* </MemoryRouter> */}
     </div>
   );
